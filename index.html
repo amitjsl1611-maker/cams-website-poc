@@ -337,7 +337,7 @@ body {
   box-sizing: border-box;
 }
 
-.hero-left { position: relative; transform: translateY(-48px); }
+.hero-left { position: relative; transform: translateY(-8px); }
 
 .hero-eyebrow { display: none; }
 
@@ -550,6 +550,8 @@ body {
   inset: 0;
   z-index: 0;
   overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, black 44%, rgba(0,0,0,0.2) 52%, rgba(0,0,0,0.2) 82%, black 90%);
+  mask-image: linear-gradient(to right, black 44%, rgba(0,0,0,0.2) 52%, rgba(0,0,0,0.2) 82%, black 90%);
 }
 #pixel-blast-bg canvas {
   width: 100% !important;
@@ -563,7 +565,7 @@ body {
 ================================================================ */
 
 .ticker-section {
-  padding: 64px 0 200px;
+  padding: 120px 0 200px;
   background: #fff;
   overflow: hidden;
 }
@@ -1656,7 +1658,7 @@ function initPixelBlast(container) {
     patternScale: 3.5, patternDensity: 0.85, pixelSizeJitter: 0.85,
     enableRipples: true, rippleSpeed: 0.4, rippleThickness: 0.12, rippleIntensityScale: 1.5,
     liquid: true, liquidStrength: 0.12, liquidRadius: 1.2, liquidWobbleSpeed: 5,
-    speed: 1.1, edgeFade: 0.08, transparent: true
+    speed: 1.8, edgeFade: 0.08, transparent: true
   };
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
