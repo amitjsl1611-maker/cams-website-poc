@@ -503,7 +503,6 @@ body {
 .ticker-section {
   padding: 64px 0 60px;
   background: #fff;
-  border-bottom: 1px solid var(--border);
   overflow: hidden;
 }
 
@@ -571,6 +570,16 @@ body {
   height: 44px;
 }
 .ticker-logo svg { display: block; }
+.ticker-logo img {
+  height: 36px;
+  width: auto;
+  max-width: 130px;
+  object-fit: contain;
+  display: block;
+  filter: grayscale(1) opacity(0.6);
+  transition: filter 0.2s;
+}
+.ticker-item:hover .ticker-logo img { filter: grayscale(0) opacity(1); }
 
 .ticker-item-name {
   font-family: 'Hanken Grotesk', sans-serif;
@@ -1336,7 +1345,7 @@ body {
 <!-- ================================================================
      ECOSYSTEM / PRODUCTS SECTION
 ================================================================ -->
-<div style="background:#fff; border-top: 1px solid var(--border);">
+<div style="background:#fff;">
 <section class="ecosystem-section" aria-labelledby="ecoTitle">
 
   <div class="eco-header">
