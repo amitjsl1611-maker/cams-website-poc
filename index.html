@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.167.0/build/three.module.js"}}</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.167.0/build/three.module.js","postprocessing":"https://esm.sh/postprocessing@6.36.4?deps=three@0.167.0"}}</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
@@ -22,7 +22,7 @@
   --border:       #E5E9F0;
   --bg-subtle:    #F5F8FD;
   --white:        #FFFFFF;
-  --nav-h:        72px;
+  --nav-h:        96px;
 }
 
 html {
@@ -74,7 +74,7 @@ body {
   text-decoration: none;
   margin-right: 32px;
 }
-.nav-logo img { height: 34px; width: auto; display: block; }
+.nav-logo img { height: 40px; width: auto; display: block; }
 
 /* Main links */
 .nav-main {
@@ -574,29 +574,29 @@ body {
 
 .ticker-item {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 12px;
-  padding: 0 48px;
-  white-space: nowrap;
+  gap: 8px;
+  padding: 0 52px;
   flex-shrink: 0;
 }
 
-.ticker-item img {
-  height: 36px;
-  width: auto;
-  max-width: 120px;
-  object-fit: contain;
-  display: block;
-  filter: none;
-  transition: opacity 0.2s;
+.ticker-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
 }
-.ticker-item img:hover { opacity: 0.8; }
+.ticker-logo svg { display: block; }
 
 .ticker-item-name {
   font-family: 'Hanken Grotesk', sans-serif;
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 500;
-  color: var(--text-mid);
+  color: #9CA3AF;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  text-transform: uppercase;
 }
 
 /* ================================================================
@@ -1079,100 +1079,148 @@ body {
   <div class="ticker-track-wrap">
     <div class="ticker-track" id="tickerTrack">
 
-      <!-- Set 1 -->
+      <!-- Set 1 — greyscale logo marks + name -->
+
+      <!-- HDFC MF: three rising pillars (growth/building mark) -->
       <div class="ticker-item">
-        <!-- HDFC MF: dark red + "HDFC" bold + "Mutual Fund" light -->
-        <svg width="140" height="36" viewBox="0 0 140 36" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="HDFC Mutual Fund">
-          <rect x="0" y="8" width="4" height="20" fill="#C8102E"/>
-          <text x="12" y="23" font-family="Hanken Grotesk,sans-serif" font-size="14" font-weight="700" fill="#C8102E">HDFC</text>
-          <text x="12" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text>
-        </svg>
+        <div class="ticker-logo">
+          <svg width="52" height="44" viewBox="0 0 52 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="HDFC Mutual Fund">
+            <rect x="0"  y="22" width="12" height="22" rx="2" fill="#4B5563"/>
+            <rect x="20" y="10" width="12" height="34" rx="2" fill="#4B5563"/>
+            <rect x="40" y="0"  width="12" height="44" rx="2" fill="#4B5563"/>
+            <rect x="0"  y="18" width="52" height="5" rx="2" fill="#4B5563"/>
+          </svg>
+        </div>
+        <span class="ticker-item-name">HDFC MF</span>
       </div>
+
+      <!-- SBI MF: keyhole / lock icon (SBI's iconic keyhole) -->
       <div class="ticker-item">
-        <!-- SBI MF: navy blue -->
-        <svg width="130" height="36" viewBox="0 0 130 36" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SBI Mutual Fund">
-          <circle cx="8" cy="18" r="8" fill="#003087"/>
-          <text x="22" y="23" font-family="Hanken Grotesk,sans-serif" font-size="14" font-weight="700" fill="#003087">SBI</text>
-          <text x="22" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text>
-        </svg>
+        <div class="ticker-logo">
+          <svg width="36" height="44" viewBox="0 0 36 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="SBI Mutual Fund">
+            <circle cx="18" cy="15" r="13" stroke="#4B5563" stroke-width="3.5"/>
+            <path d="M11 27 L14 44 L22 44 L25 27" fill="#4B5563"/>
+            <rect x="12" y="37" width="12" height="4" rx="2" fill="#9CA3AF"/>
+          </svg>
+        </div>
+        <span class="ticker-item-name">SBI MF</span>
       </div>
+
+      <!-- ICICI Prudential: N-wave swoosh (their brand wave mark) -->
       <div class="ticker-item">
-        <!-- ICICI Prudential: orange -->
-        <svg width="170" height="36" viewBox="0 0 170 36" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ICICI Prudential MF">
-          <rect x="0" y="6" width="6" height="24" rx="3" fill="#F58025"/>
-          <text x="14" y="23" font-family="Hanken Grotesk,sans-serif" font-size="13" font-weight="700" fill="#F58025">ICICI Prudential</text>
-          <text x="14" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text>
-        </svg>
+        <div class="ticker-logo">
+          <svg width="56" height="44" viewBox="0 0 56 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="ICICI Prudential MF">
+            <path d="M4 36 L4 8 L28 36 L28 8" stroke="#4B5563" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <line x1="28" y1="8" x2="52" y2="8" stroke="#4B5563" stroke-width="4" stroke-linecap="round"/>
+            <line x1="28" y1="22" x2="44" y2="22" stroke="#4B5563" stroke-width="4" stroke-linecap="round"/>
+            <line x1="28" y1="36" x2="52" y2="36" stroke="#4B5563" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="ticker-item-name">ICICI Prudential MF</span>
       </div>
+
+      <!-- Aditya Birla Sun Life: overlapping circles (their iconic AB mark) -->
       <div class="ticker-item">
-        <!-- Aditya Birla Sun Life: red -->
-        <svg width="200" height="36" viewBox="0 0 200 36" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Aditya Birla Sun Life MF">
-          <circle cx="8" cy="18" r="7" fill="none" stroke="#E42313" stroke-width="2.5"/>
-          <circle cx="8" cy="18" r="3" fill="#E42313"/>
-          <text x="22" y="22" font-family="Hanken Grotesk,sans-serif" font-size="12" font-weight="700" fill="#E42313">Aditya Birla Sun Life</text>
-          <text x="22" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text>
-        </svg>
+        <div class="ticker-logo">
+          <svg width="60" height="44" viewBox="0 0 60 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Aditya Birla Sun Life MF">
+            <circle cx="21" cy="22" r="18" stroke="#4B5563" stroke-width="3" fill="none"/>
+            <circle cx="39" cy="22" r="18" stroke="#4B5563" stroke-width="3" fill="none"/>
+            <path d="M30 6 Q36 22 30 38 Q24 22 30 6Z" fill="#4B5563" opacity="0.35"/>
+          </svg>
+        </div>
+        <span class="ticker-item-name">Aditya Birla Sun Life MF</span>
       </div>
+
+      <!-- Franklin Templeton: globe/sphere mark -->
       <div class="ticker-item">
-        <!-- Franklin Templeton: deep blue -->
-        <svg width="175" height="36" viewBox="0 0 175 36" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Franklin Templeton">
-          <rect x="0" y="8" width="6" height="6" rx="1" fill="#0E4DA4"/>
-          <rect x="0" y="16" width="6" height="6" rx="1" fill="#0E4DA4"/>
-          <rect x="0" y="24" width="6" height="6" rx="1" fill="#0E4DA4"/>
-          <text x="14" y="23" font-family="Hanken Grotesk,sans-serif" font-size="13" font-weight="700" fill="#0E4DA4">Franklin Templeton</text>
-          <text x="14" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">India</text>
-        </svg>
+        <div class="ticker-logo">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Franklin Templeton">
+            <circle cx="22" cy="22" r="19" stroke="#4B5563" stroke-width="3"/>
+            <ellipse cx="22" cy="22" rx="9" ry="19" stroke="#4B5563" stroke-width="2.5"/>
+            <line x1="3" y1="22" x2="41" y2="22" stroke="#4B5563" stroke-width="2.5"/>
+            <path d="M5 13 Q22 9 39 13" stroke="#4B5563" stroke-width="2" fill="none"/>
+            <path d="M5 31 Q22 35 39 31" stroke="#4B5563" stroke-width="2" fill="none"/>
+          </svg>
+        </div>
+        <span class="ticker-item-name">Franklin Templeton</span>
       </div>
+
+      <!-- Kotak MF: K chevron / angular mark -->
       <div class="ticker-item">
-        <!-- Kotak MF: red -->
-        <svg width="140" height="36" viewBox="0 0 140 36" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Kotak Mahindra MF">
-          <path d="M4 8 L12 18 L4 28" stroke="#ED1C24" stroke-width="3" stroke-linecap="round" fill="none"/>
-          <text x="18" y="23" font-family="Hanken Grotesk,sans-serif" font-size="14" font-weight="700" fill="#ED1C24">Kotak</text>
-          <text x="18" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text>
-        </svg>
+        <div class="ticker-logo">
+          <svg width="42" height="44" viewBox="0 0 42 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Kotak Mahindra MF">
+            <line x1="6" y1="2" x2="6" y2="42" stroke="#4B5563" stroke-width="5" stroke-linecap="round"/>
+            <polyline points="6,22 22,2 38,2" fill="none" stroke="#4B5563" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="6,22 22,42 38,42" fill="none" stroke="#4B5563" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="ticker-item-name">Kotak MF</span>
       </div>
+
+      <!-- DSP MF: 2×2 square grid mark -->
       <div class="ticker-item">
-        <!-- DSP MF: teal/green -->
-        <svg width="120" height="36" viewBox="0 0 120 36" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="DSP Mutual Fund">
-          <rect x="0" y="8" width="8" height="20" rx="4" fill="#00897B"/>
-          <text x="16" y="23" font-family="Hanken Grotesk,sans-serif" font-size="14" font-weight="700" fill="#00897B">DSP</text>
-          <text x="16" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text>
-        </svg>
+        <div class="ticker-logo">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="DSP Mutual Fund">
+            <rect x="0"  y="0"  width="19" height="19" rx="3" fill="#4B5563"/>
+            <rect x="25" y="0"  width="19" height="19" rx="3" fill="#4B5563" opacity="0.65"/>
+            <rect x="0"  y="25" width="19" height="19" rx="3" fill="#4B5563" opacity="0.65"/>
+            <rect x="25" y="25" width="19" height="19" rx="3" fill="#4B5563" opacity="0.35"/>
+          </svg>
+        </div>
+        <span class="ticker-item-name">DSP MF</span>
       </div>
+
+      <!-- Tata MF: TATA arch mark (ellipse above letters) -->
       <div class="ticker-item">
-        <!-- Tata MF: navy blue -->
-        <svg width="130" height="36" viewBox="0 0 130 36" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tata Mutual Fund">
-          <rect x="0" y="8" width="14" height="3" rx="1.5" fill="#003399"/>
-          <rect x="5" y="8" width="3" height="20" rx="1.5" fill="#003399"/>
-          <text x="22" y="23" font-family="Hanken Grotesk,sans-serif" font-size="14" font-weight="700" fill="#003399">Tata</text>
-          <text x="22" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text>
-        </svg>
+        <div class="ticker-logo">
+          <svg width="60" height="44" viewBox="0 0 60 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Tata Mutual Fund">
+            <path d="M8 20 Q30 2 52 20" stroke="#4B5563" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+            <text x="30" y="42" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="18" font-weight="800" fill="#4B5563" letter-spacing="3">TATA</text>
+          </svg>
+        </div>
+        <span class="ticker-item-name">Tata MF</span>
       </div>
 
       <!-- Set 2 — exact duplicate for seamless loop -->
+
       <div class="ticker-item">
-        <svg width="140" height="36" viewBox="0 0 140 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="4" height="20" fill="#C8102E"/><text x="12" y="23" font-family="Hanken Grotesk,sans-serif" font-size="14" font-weight="700" fill="#C8102E">HDFC</text><text x="12" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text></svg>
+        <div class="ticker-logo"><svg width="52" height="44" viewBox="0 0 52 44" fill="none"><rect x="0" y="22" width="12" height="22" rx="2" fill="#4B5563"/><rect x="20" y="10" width="12" height="34" rx="2" fill="#4B5563"/><rect x="40" y="0" width="12" height="44" rx="2" fill="#4B5563"/><rect x="0" y="18" width="52" height="5" rx="2" fill="#4B5563"/></svg></div>
+        <span class="ticker-item-name">HDFC MF</span>
       </div>
+
       <div class="ticker-item">
-        <svg width="130" height="36" viewBox="0 0 130 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="18" r="8" fill="#003087"/><text x="22" y="23" font-family="Hanken Grotesk,sans-serif" font-size="14" font-weight="700" fill="#003087">SBI</text><text x="22" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text></svg>
+        <div class="ticker-logo"><svg width="36" height="44" viewBox="0 0 36 44" fill="none"><circle cx="18" cy="15" r="13" stroke="#4B5563" stroke-width="3.5"/><path d="M11 27 L14 44 L22 44 L25 27" fill="#4B5563"/><rect x="12" y="37" width="12" height="4" rx="2" fill="#9CA3AF"/></svg></div>
+        <span class="ticker-item-name">SBI MF</span>
       </div>
+
       <div class="ticker-item">
-        <svg width="170" height="36" viewBox="0 0 170 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="6" width="6" height="24" rx="3" fill="#F58025"/><text x="14" y="23" font-family="Hanken Grotesk,sans-serif" font-size="13" font-weight="700" fill="#F58025">ICICI Prudential</text><text x="14" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text></svg>
+        <div class="ticker-logo"><svg width="56" height="44" viewBox="0 0 56 44" fill="none"><path d="M4 36 L4 8 L28 36 L28 8" stroke="#4B5563" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><line x1="28" y1="8" x2="52" y2="8" stroke="#4B5563" stroke-width="4" stroke-linecap="round"/><line x1="28" y1="22" x2="44" y2="22" stroke="#4B5563" stroke-width="4" stroke-linecap="round"/><line x1="28" y1="36" x2="52" y2="36" stroke="#4B5563" stroke-width="4" stroke-linecap="round"/></svg></div>
+        <span class="ticker-item-name">ICICI Prudential MF</span>
       </div>
+
       <div class="ticker-item">
-        <svg width="200" height="36" viewBox="0 0 200 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="18" r="7" fill="none" stroke="#E42313" stroke-width="2.5"/><circle cx="8" cy="18" r="3" fill="#E42313"/><text x="22" y="22" font-family="Hanken Grotesk,sans-serif" font-size="12" font-weight="700" fill="#E42313">Aditya Birla Sun Life</text><text x="22" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text></svg>
+        <div class="ticker-logo"><svg width="60" height="44" viewBox="0 0 60 44" fill="none"><circle cx="21" cy="22" r="18" stroke="#4B5563" stroke-width="3" fill="none"/><circle cx="39" cy="22" r="18" stroke="#4B5563" stroke-width="3" fill="none"/><path d="M30 6 Q36 22 30 38 Q24 22 30 6Z" fill="#4B5563" opacity="0.35"/></svg></div>
+        <span class="ticker-item-name">Aditya Birla Sun Life MF</span>
       </div>
+
       <div class="ticker-item">
-        <svg width="175" height="36" viewBox="0 0 175 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="6" height="6" rx="1" fill="#0E4DA4"/><rect x="0" y="16" width="6" height="6" rx="1" fill="#0E4DA4"/><rect x="0" y="24" width="6" height="6" rx="1" fill="#0E4DA4"/><text x="14" y="23" font-family="Hanken Grotesk,sans-serif" font-size="13" font-weight="700" fill="#0E4DA4">Franklin Templeton</text><text x="14" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">India</text></svg>
+        <div class="ticker-logo"><svg width="44" height="44" viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="19" stroke="#4B5563" stroke-width="3"/><ellipse cx="22" cy="22" rx="9" ry="19" stroke="#4B5563" stroke-width="2.5"/><line x1="3" y1="22" x2="41" y2="22" stroke="#4B5563" stroke-width="2.5"/><path d="M5 13 Q22 9 39 13" stroke="#4B5563" stroke-width="2" fill="none"/><path d="M5 31 Q22 35 39 31" stroke="#4B5563" stroke-width="2" fill="none"/></svg></div>
+        <span class="ticker-item-name">Franklin Templeton</span>
       </div>
+
       <div class="ticker-item">
-        <svg width="140" height="36" viewBox="0 0 140 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 8 L12 18 L4 28" stroke="#ED1C24" stroke-width="3" stroke-linecap="round" fill="none"/><text x="18" y="23" font-family="Hanken Grotesk,sans-serif" font-size="14" font-weight="700" fill="#ED1C24">Kotak</text><text x="18" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text></svg>
+        <div class="ticker-logo"><svg width="42" height="44" viewBox="0 0 42 44" fill="none"><line x1="6" y1="2" x2="6" y2="42" stroke="#4B5563" stroke-width="5" stroke-linecap="round"/><polyline points="6,22 22,2 38,2" fill="none" stroke="#4B5563" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><polyline points="6,22 22,42 38,42" fill="none" stroke="#4B5563" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="ticker-item-name">Kotak MF</span>
       </div>
+
       <div class="ticker-item">
-        <svg width="120" height="36" viewBox="0 0 120 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="8" height="20" rx="4" fill="#00897B"/><text x="16" y="23" font-family="Hanken Grotesk,sans-serif" font-size="14" font-weight="700" fill="#00897B">DSP</text><text x="16" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text></svg>
+        <div class="ticker-logo"><svg width="44" height="44" viewBox="0 0 44 44" fill="none"><rect x="0" y="0" width="19" height="19" rx="3" fill="#4B5563"/><rect x="25" y="0" width="19" height="19" rx="3" fill="#4B5563" opacity="0.65"/><rect x="0" y="25" width="19" height="19" rx="3" fill="#4B5563" opacity="0.65"/><rect x="25" y="25" width="19" height="19" rx="3" fill="#4B5563" opacity="0.35"/></svg></div>
+        <span class="ticker-item-name">DSP MF</span>
       </div>
+
       <div class="ticker-item">
-        <svg width="130" height="36" viewBox="0 0 130 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="14" height="3" rx="1.5" fill="#003399"/><rect x="5" y="8" width="3" height="20" rx="1.5" fill="#003399"/><text x="22" y="23" font-family="Hanken Grotesk,sans-serif" font-size="14" font-weight="700" fill="#003399">Tata</text><text x="22" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text></svg>
+        <div class="ticker-logo"><svg width="60" height="44" viewBox="0 0 60 44" fill="none"><path d="M8 20 Q30 2 52 20" stroke="#4B5563" stroke-width="3.5" fill="none" stroke-linecap="round"/><text x="30" y="42" text-anchor="middle" font-family="Hanken Grotesk,sans-serif" font-size="18" font-weight="800" fill="#4B5563" letter-spacing="3">TATA</text></svg></div>
+        <span class="ticker-item-name">Tata MF</span>
       </div>
 
     </div>
@@ -1250,9 +1298,10 @@ function setSlide(n) {
 // Carousel autoplay disabled — single hero view
 </script>
 
-<!-- PixelBlast hero background — Three.js module -->
+<!-- PixelBlast hero background — Three.js + postprocessing liquid -->
 <script type="module">
 import * as THREE from 'three';
+import { Effect, EffectComposer, EffectPass, RenderPass } from 'postprocessing';
 
 const SHAPE_MAP = { square: 0, circle: 1, triangle: 2, diamond: 3 };
 const MAX_CLICKS = 10;
@@ -1274,7 +1323,7 @@ uniform float uRippleThickness;
 uniform float uRippleIntensity;
 uniform float uEdgeFade;
 uniform int   uShapeType;
-const int SHAPE_SQUARE=0, SHAPE_CIRCLE=1, SHAPE_TRIANGLE=2, SHAPE_DIAMOND=3;
+const int SHAPE_SQUARE=0,SHAPE_CIRCLE=1,SHAPE_TRIANGLE=2,SHAPE_DIAMOND=3;
 const int MAX_CLICKS=10;
 uniform vec2  uClickPos[MAX_CLICKS];
 uniform float uClickTimes[MAX_CLICKS];
@@ -1323,12 +1372,11 @@ void main(){
   if(uEnableRipples==1){
     for(int i=0;i<MAX_CLICKS;++i){
       vec2 pos=uClickPos[i];if(pos.x<0.)continue;
-      float cellPixelSize2=8.*pixelSize;
-      vec2 cuv=(((pos-uResolution*.5-cellPixelSize2*.5)/uResolution))*vec2(ar,1.);
+      float cps=8.*pixelSize;
+      vec2 cuv=(((pos-uResolution*.5-cps*.5)/uResolution))*vec2(ar,1.);
       float t=max(uTime-uClickTimes[i],0.);
       float r=distance(uv,cuv);
-      float waveR=uRippleSpeed*t;
-      float ring=exp(-pow((r-waveR)/uRippleThickness,2.));
+      float ring=exp(-pow((r-uRippleSpeed*t)/uRippleThickness,2.));
       float atten=exp(-1.*t)*exp(-10.*r);
       feed=max(feed,ring*atten*uRippleIntensity);
     }
@@ -1336,8 +1384,7 @@ void main(){
   float bayer=Bayer8(fragCoord/uPixelSize)-.5;
   float bw=step(.5,feed+bayer);
   float h=fract(sin(dot(floor(fragCoord/uPixelSize),vec2(127.1,311.7)))*43758.5453);
-  float jitterScale=1.+(h-.5)*uPixelJitter;
-  float coverage=bw*jitterScale;
+  float coverage=bw*(1.+(h-.5)*uPixelJitter);
   float M;
   if(uShapeType==SHAPE_CIRCLE) M=maskCircle(pixelUV,coverage);
   else if(uShapeType==SHAPE_TRIANGLE) M=maskTriangle(pixelUV,pixelId,coverage);
@@ -1346,27 +1393,114 @@ void main(){
   if(uEdgeFade>0.){
     vec2 norm=gl_FragCoord.xy/uResolution;
     float edge=min(min(norm.x,norm.y),min(1.-norm.x,1.-norm.y));
-    float fade=smoothstep(0.,uEdgeFade,edge);
-    M*=fade;
+    M*=smoothstep(0.,uEdgeFade,edge);
   }
-  vec3 color=uColor;
-  vec3 srgb=mix(color*12.92,1.055*pow(color,vec3(1./2.4))-.055,step(.0031308,color));
+  vec3 c=uColor;
+  vec3 srgb=mix(c*12.92,1.055*pow(c,vec3(1./2.4))-.055,step(.0031308,c));
   fragColor=vec4(srgb,M);
 }
 `;
 
+/* ── Touch texture for liquid distortion ── */
+function createTouchTexture(liquidRadius) {
+  const size = 64;
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = 'black';
+  ctx.fillRect(0, 0, size, size);
+  const texture = new THREE.Texture(canvas);
+  texture.minFilter = texture.magFilter = THREE.LinearFilter;
+  texture.generateMipmaps = false;
+  const trail = [];
+  let last = null;
+  const maxAge = 64;
+  let radius = 0.1 * size * (liquidRadius ?? 1);
+  const spd = 1 / maxAge;
+  const clear = () => { ctx.fillStyle = 'black'; ctx.fillRect(0, 0, size, size); };
+  const drawPoint = p => {
+    const pos = { x: p.x * size, y: (1 - p.y) * size };
+    const easeOutSine = t => Math.sin((t * Math.PI) / 2);
+    const easeOutQuad = t => -t * (t - 2);
+    let intensity = p.age < maxAge * 0.3
+      ? easeOutSine(p.age / (maxAge * 0.3))
+      : (easeOutQuad(1 - (p.age - maxAge * 0.3) / (maxAge * 0.7)) || 0);
+    intensity *= p.force;
+    const col = `${((p.vx + 1) / 2) * 255},${((p.vy + 1) / 2) * 255},${intensity * 255}`;
+    const offset = size * 5;
+    ctx.shadowOffsetX = ctx.shadowOffsetY = offset;
+    ctx.shadowBlur = radius;
+    ctx.shadowColor = `rgba(${col},${0.22 * intensity})`;
+    ctx.beginPath();
+    ctx.fillStyle = 'rgba(255,0,0,1)';
+    ctx.arc(pos.x - offset, pos.y - offset, radius, 0, Math.PI * 2);
+    ctx.fill();
+  };
+  const addTouch = norm => {
+    let force = 0, vx = 0, vy = 0;
+    if (last) {
+      const dx = norm.x - last.x, dy = norm.y - last.y;
+      if (dx === 0 && dy === 0) return;
+      const d = Math.sqrt(dx * dx + dy * dy);
+      vx = dx / (d || 1); vy = dy / (d || 1);
+      force = Math.min((dx * dx + dy * dy) * 10000, 1);
+    }
+    last = { x: norm.x, y: norm.y };
+    trail.push({ x: norm.x, y: norm.y, age: 0, force, vx, vy });
+  };
+  const update = () => {
+    clear();
+    for (let i = trail.length - 1; i >= 0; i--) {
+      const pt = trail[i];
+      const f = pt.force * spd * (1 - pt.age / maxAge);
+      pt.x += pt.vx * f; pt.y += pt.vy * f; pt.age++;
+      if (pt.age > maxAge) trail.splice(i, 1);
+    }
+    trail.forEach(drawPoint);
+    texture.needsUpdate = true;
+  };
+  return { texture, addTouch, update };
+}
+
+/* ── Liquid postprocessing effect ── */
+function createLiquidEffect(texture, strength, freq) {
+  return new Effect('LiquidEffect', `
+    uniform sampler2D uTexture;
+    uniform float uStrength;
+    uniform float uTime;
+    uniform float uFreq;
+    void mainUv(inout vec2 uv) {
+      vec4 tex = texture2D(uTexture, uv);
+      float vx = tex.r * 2.0 - 1.0;
+      float vy = tex.g * 2.0 - 1.0;
+      float intensity = tex.b;
+      float wave = 0.5 + 0.5 * sin(uTime * uFreq + intensity * 6.2831853);
+      uv += vec2(vx, vy) * uStrength * intensity * wave;
+    }
+  `, {
+    uniforms: new Map([
+      ['uTexture',  new THREE.Uniform(texture)],
+      ['uStrength', new THREE.Uniform(strength ?? 0.12)],
+      ['uTime',     new THREE.Uniform(0)],
+      ['uFreq',     new THREE.Uniform(freq ?? 5)]
+    ])
+  });
+}
+
+/* ── Main init ── */
 function initPixelBlast(container) {
   const opts = {
-    variant: 'circle', pixelSize: 3, color: '#8BAFD4',
-    patternScale: 1.25, patternDensity: 1.2, pixelSizeJitter: 0.5,
+    variant: 'circle', pixelSize: 6, color: '#a0b6d5',
+    patternScale: 3, patternDensity: 1.2, pixelSizeJitter: 0.5,
     enableRipples: true, rippleSpeed: 0.4, rippleThickness: 0.12, rippleIntensityScale: 1.5,
-    speed: 0.55, edgeFade: 0.27, transparent: true
+    liquid: true, liquidStrength: 0.12, liquidRadius: 1.2, liquidWobbleSpeed: 5,
+    speed: 0.6, edgeFade: 0.25, transparent: true
   };
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
   renderer.domElement.style.cssText = 'width:100%;height:100%;display:block;';
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-  if (opts.transparent) renderer.setClearAlpha(0);
+  renderer.setClearAlpha(0);
   container.appendChild(renderer.domElement);
 
   const uniforms = {
@@ -1375,16 +1509,16 @@ function initPixelBlast(container) {
     uColor:      { value: new THREE.Color(opts.color) },
     uClickPos:   { value: Array.from({ length: MAX_CLICKS }, () => new THREE.Vector2(-1, -1)) },
     uClickTimes: { value: new Float32Array(MAX_CLICKS) },
-    uShapeType:  { value: SHAPE_MAP[opts.variant] ?? 1 },
+    uShapeType:  { value: SHAPE_MAP[opts.variant] },
     uPixelSize:  { value: opts.pixelSize * renderer.getPixelRatio() },
     uScale:      { value: opts.patternScale },
     uDensity:    { value: opts.patternDensity },
-    uPixelJitter:    { value: opts.pixelSizeJitter },
-    uEnableRipples:  { value: opts.enableRipples ? 1 : 0 },
-    uRippleSpeed:    { value: opts.rippleSpeed },
-    uRippleThickness:{ value: opts.rippleThickness },
-    uRippleIntensity:{ value: opts.rippleIntensityScale },
-    uEdgeFade:       { value: opts.edgeFade }
+    uPixelJitter:     { value: opts.pixelSizeJitter },
+    uEnableRipples:   { value: 1 },
+    uRippleSpeed:     { value: opts.rippleSpeed },
+    uRippleThickness: { value: opts.rippleThickness },
+    uRippleIntensity: { value: opts.rippleIntensityScale },
+    uEdgeFade:        { value: opts.edgeFade }
   };
 
   const scene    = new THREE.Scene();
@@ -1396,33 +1530,62 @@ function initPixelBlast(container) {
   });
   scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material));
 
+  /* liquid setup */
+  const touch       = createTouchTexture(opts.liquidRadius);
+  const liquidFx    = createLiquidEffect(touch.texture, opts.liquidStrength, opts.liquidWobbleSpeed);
+  const composer    = new EffectComposer(renderer);
+  const renderPass  = new RenderPass(scene, camera);
+  const effectPass  = new EffectPass(camera, liquidFx);
+  effectPass.renderToScreen = true;
+  composer.addPass(renderPass);
+  composer.addPass(effectPass);
+
   const setSize = () => {
     const w = container.clientWidth || 1, h = container.clientHeight || 1;
     renderer.setSize(w, h, false);
+    composer.setSize(renderer.domElement.width, renderer.domElement.height);
     uniforms.uResolution.value.set(renderer.domElement.width, renderer.domElement.height);
     uniforms.uPixelSize.value = opts.pixelSize * renderer.getPixelRatio();
   };
   setSize();
   new ResizeObserver(setSize).observe(container);
 
-  let clickIx = 0;
-  const timeOffset = Math.random() * 1000;
-  const clock = new THREE.Clock();
-
-  renderer.domElement.addEventListener('pointerdown', e => {
+  /* map pointer events to renderer pixel space */
+  const mapPx = e => {
     const rect = renderer.domElement.getBoundingClientRect();
-    const scaleX = renderer.domElement.width / rect.width;
-    const scaleY = renderer.domElement.height / rect.height;
-    const fx = (e.clientX - rect.left) * scaleX;
-    const fy = (rect.height - (e.clientY - rect.top)) * scaleY;
+    const sx = renderer.domElement.width  / rect.width;
+    const sy = renderer.domElement.height / rect.height;
+    return {
+      fx: (e.clientX - rect.left) * sx,
+      fy: (rect.height - (e.clientY - rect.top)) * sy,
+      w: renderer.domElement.width,
+      h: renderer.domElement.height
+    };
+  };
+
+  let clickIx = 0;
+  renderer.domElement.addEventListener('pointerdown', e => {
+    const { fx, fy } = mapPx(e);
     uniforms.uClickPos.value[clickIx].set(fx, fy);
     uniforms.uClickTimes.value[clickIx] = uniforms.uTime.value;
     clickIx = (clickIx + 1) % MAX_CLICKS;
   }, { passive: true });
 
+  renderer.domElement.addEventListener('pointermove', e => {
+    const { fx, fy, w, h } = mapPx(e);
+    touch.addTouch({ x: fx / w, y: fy / h });
+  }, { passive: true });
+
+  const timeOffset = (crypto.getRandomValues(new Uint32Array(1))[0] / 0xffffffff) * 1000;
+  const clock = new THREE.Clock();
+
   (function animate() {
-    uniforms.uTime.value = timeOffset + clock.getElapsedTime() * opts.speed;
-    renderer.render(scene, camera);
+    const t = timeOffset + clock.getElapsedTime() * opts.speed;
+    uniforms.uTime.value = t;
+    const uT = liquidFx.uniforms.get('uTime');
+    if (uT) uT.value = t;
+    touch.update();
+    composer.render();
     requestAnimationFrame(animate);
   })();
 }
