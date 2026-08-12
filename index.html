@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.167.0/build/three.module.js"}}</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
@@ -496,6 +497,109 @@ body {
 
 
 /* ================================================================
+   PIXEL BLAST BACKGROUND
+================================================================ */
+
+#pixel-blast-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+#pixel-blast-bg canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+.hero-track { position: relative; z-index: 1; }
+
+/* ================================================================
+   TICKER TAPE / TRUST STRIP
+================================================================ */
+
+.ticker-section {
+  padding: 64px 0 60px;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.ticker-heading {
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: #2C2C2C;
+  text-align: center;
+  margin-bottom: 40px;
+  letter-spacing: -0.01em;
+}
+
+.ticker-track-wrap {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* fade edges */
+.ticker-track-wrap::before,
+.ticker-track-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 120px;
+  z-index: 2;
+  pointer-events: none;
+}
+.ticker-track-wrap::before {
+  left: 0;
+  background: linear-gradient(to right, #fff 30%, transparent);
+}
+.ticker-track-wrap::after {
+  right: 0;
+  background: linear-gradient(to left, #fff 30%, transparent);
+}
+
+.ticker-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: ticker-scroll 32s linear infinite;
+}
+.ticker-track:hover { animation-play-state: paused; }
+
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 48px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ticker-item img {
+  height: 36px;
+  width: auto;
+  max-width: 120px;
+  object-fit: contain;
+  display: block;
+  filter: none;
+  transition: opacity 0.2s;
+}
+.ticker-item img:hover { opacity: 0.8; }
+
+.ticker-item-name {
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-mid);
+}
+
+/* ================================================================
    UTILITY
 ================================================================ */
 
@@ -880,6 +984,7 @@ body {
      HERO
 ================================================================ -->
 <section class="hero" aria-label="CAMS hero" id="hero">
+  <div id="pixel-blast-bg" aria-hidden="true"></div>
   <div class="hero-track" id="heroTrack" aria-roledescription="carousel" aria-label="CAMS highlights">
 
     <!-- Slide 1 -->
@@ -966,6 +1071,114 @@ body {
   </div>
 </section>
 
+<!-- ================================================================
+     TICKER TAPE — Trusted AMC Partners
+================================================================ -->
+<section class="ticker-section" aria-label="Trusted by India's leading asset managers">
+  <p class="ticker-heading">Trusted by India's leading asset managers</p>
+  <div class="ticker-track-wrap">
+    <div class="ticker-track" id="tickerTrack">
+
+      <!-- Set 1 -->
+      <div class="ticker-item">
+        <!-- HDFC MF: dark red + "HDFC" bold + "Mutual Fund" light -->
+        <svg width="140" height="36" viewBox="0 0 140 36" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="HDFC Mutual Fund">
+          <rect x="0" y="8" width="4" height="20" fill="#C8102E"/>
+          <text x="12" y="23" font-family="Hanken Grotesk,sans-serif" font-size="14" font-weight="700" fill="#C8102E">HDFC</text>
+          <text x="12" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text>
+        </svg>
+      </div>
+      <div class="ticker-item">
+        <!-- SBI MF: navy blue -->
+        <svg width="130" height="36" viewBox="0 0 130 36" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SBI Mutual Fund">
+          <circle cx="8" cy="18" r="8" fill="#003087"/>
+          <text x="22" y="23" font-family="Hanken Grotesk,sans-serif" font-size="14" font-weight="700" fill="#003087">SBI</text>
+          <text x="22" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text>
+        </svg>
+      </div>
+      <div class="ticker-item">
+        <!-- ICICI Prudential: orange -->
+        <svg width="170" height="36" viewBox="0 0 170 36" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ICICI Prudential MF">
+          <rect x="0" y="6" width="6" height="24" rx="3" fill="#F58025"/>
+          <text x="14" y="23" font-family="Hanken Grotesk,sans-serif" font-size="13" font-weight="700" fill="#F58025">ICICI Prudential</text>
+          <text x="14" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text>
+        </svg>
+      </div>
+      <div class="ticker-item">
+        <!-- Aditya Birla Sun Life: red -->
+        <svg width="200" height="36" viewBox="0 0 200 36" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Aditya Birla Sun Life MF">
+          <circle cx="8" cy="18" r="7" fill="none" stroke="#E42313" stroke-width="2.5"/>
+          <circle cx="8" cy="18" r="3" fill="#E42313"/>
+          <text x="22" y="22" font-family="Hanken Grotesk,sans-serif" font-size="12" font-weight="700" fill="#E42313">Aditya Birla Sun Life</text>
+          <text x="22" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text>
+        </svg>
+      </div>
+      <div class="ticker-item">
+        <!-- Franklin Templeton: deep blue -->
+        <svg width="175" height="36" viewBox="0 0 175 36" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Franklin Templeton">
+          <rect x="0" y="8" width="6" height="6" rx="1" fill="#0E4DA4"/>
+          <rect x="0" y="16" width="6" height="6" rx="1" fill="#0E4DA4"/>
+          <rect x="0" y="24" width="6" height="6" rx="1" fill="#0E4DA4"/>
+          <text x="14" y="23" font-family="Hanken Grotesk,sans-serif" font-size="13" font-weight="700" fill="#0E4DA4">Franklin Templeton</text>
+          <text x="14" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">India</text>
+        </svg>
+      </div>
+      <div class="ticker-item">
+        <!-- Kotak MF: red -->
+        <svg width="140" height="36" viewBox="0 0 140 36" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Kotak Mahindra MF">
+          <path d="M4 8 L12 18 L4 28" stroke="#ED1C24" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <text x="18" y="23" font-family="Hanken Grotesk,sans-serif" font-size="14" font-weight="700" fill="#ED1C24">Kotak</text>
+          <text x="18" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text>
+        </svg>
+      </div>
+      <div class="ticker-item">
+        <!-- DSP MF: teal/green -->
+        <svg width="120" height="36" viewBox="0 0 120 36" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="DSP Mutual Fund">
+          <rect x="0" y="8" width="8" height="20" rx="4" fill="#00897B"/>
+          <text x="16" y="23" font-family="Hanken Grotesk,sans-serif" font-size="14" font-weight="700" fill="#00897B">DSP</text>
+          <text x="16" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text>
+        </svg>
+      </div>
+      <div class="ticker-item">
+        <!-- Tata MF: navy blue -->
+        <svg width="130" height="36" viewBox="0 0 130 36" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tata Mutual Fund">
+          <rect x="0" y="8" width="14" height="3" rx="1.5" fill="#003399"/>
+          <rect x="5" y="8" width="3" height="20" rx="1.5" fill="#003399"/>
+          <text x="22" y="23" font-family="Hanken Grotesk,sans-serif" font-size="14" font-weight="700" fill="#003399">Tata</text>
+          <text x="22" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text>
+        </svg>
+      </div>
+
+      <!-- Set 2 — exact duplicate for seamless loop -->
+      <div class="ticker-item">
+        <svg width="140" height="36" viewBox="0 0 140 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="4" height="20" fill="#C8102E"/><text x="12" y="23" font-family="Hanken Grotesk,sans-serif" font-size="14" font-weight="700" fill="#C8102E">HDFC</text><text x="12" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text></svg>
+      </div>
+      <div class="ticker-item">
+        <svg width="130" height="36" viewBox="0 0 130 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="18" r="8" fill="#003087"/><text x="22" y="23" font-family="Hanken Grotesk,sans-serif" font-size="14" font-weight="700" fill="#003087">SBI</text><text x="22" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text></svg>
+      </div>
+      <div class="ticker-item">
+        <svg width="170" height="36" viewBox="0 0 170 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="6" width="6" height="24" rx="3" fill="#F58025"/><text x="14" y="23" font-family="Hanken Grotesk,sans-serif" font-size="13" font-weight="700" fill="#F58025">ICICI Prudential</text><text x="14" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text></svg>
+      </div>
+      <div class="ticker-item">
+        <svg width="200" height="36" viewBox="0 0 200 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="18" r="7" fill="none" stroke="#E42313" stroke-width="2.5"/><circle cx="8" cy="18" r="3" fill="#E42313"/><text x="22" y="22" font-family="Hanken Grotesk,sans-serif" font-size="12" font-weight="700" fill="#E42313">Aditya Birla Sun Life</text><text x="22" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text></svg>
+      </div>
+      <div class="ticker-item">
+        <svg width="175" height="36" viewBox="0 0 175 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="6" height="6" rx="1" fill="#0E4DA4"/><rect x="0" y="16" width="6" height="6" rx="1" fill="#0E4DA4"/><rect x="0" y="24" width="6" height="6" rx="1" fill="#0E4DA4"/><text x="14" y="23" font-family="Hanken Grotesk,sans-serif" font-size="13" font-weight="700" fill="#0E4DA4">Franklin Templeton</text><text x="14" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">India</text></svg>
+      </div>
+      <div class="ticker-item">
+        <svg width="140" height="36" viewBox="0 0 140 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 8 L12 18 L4 28" stroke="#ED1C24" stroke-width="3" stroke-linecap="round" fill="none"/><text x="18" y="23" font-family="Hanken Grotesk,sans-serif" font-size="14" font-weight="700" fill="#ED1C24">Kotak</text><text x="18" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text></svg>
+      </div>
+      <div class="ticker-item">
+        <svg width="120" height="36" viewBox="0 0 120 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="8" height="20" rx="4" fill="#00897B"/><text x="16" y="23" font-family="Hanken Grotesk,sans-serif" font-size="14" font-weight="700" fill="#00897B">DSP</text><text x="16" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text></svg>
+      </div>
+      <div class="ticker-item">
+        <svg width="130" height="36" viewBox="0 0 130 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="14" height="3" rx="1.5" fill="#003399"/><rect x="5" y="8" width="3" height="20" rx="1.5" fill="#003399"/><text x="22" y="23" font-family="Hanken Grotesk,sans-serif" font-size="14" font-weight="700" fill="#003399">Tata</text><text x="22" y="34" font-family="Hanken Grotesk,sans-serif" font-size="9.5" font-weight="400" fill="#555">Mutual Fund</text></svg>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 
 <!-- ================================================================
      JAVASCRIPT
@@ -1035,6 +1248,187 @@ function setSlide(n) {
 }
 
 // Carousel autoplay disabled — single hero view
+</script>
+
+<!-- PixelBlast hero background — Three.js module -->
+<script type="module">
+import * as THREE from 'three';
+
+const SHAPE_MAP = { square: 0, circle: 1, triangle: 2, diamond: 3 };
+const MAX_CLICKS = 10;
+
+const VERTEX_SRC = `void main() { gl_Position = vec4(position, 1.0); }`;
+
+const FRAGMENT_SRC = `
+precision highp float;
+uniform vec3  uColor;
+uniform vec2  uResolution;
+uniform float uTime;
+uniform float uPixelSize;
+uniform float uScale;
+uniform float uDensity;
+uniform float uPixelJitter;
+uniform int   uEnableRipples;
+uniform float uRippleSpeed;
+uniform float uRippleThickness;
+uniform float uRippleIntensity;
+uniform float uEdgeFade;
+uniform int   uShapeType;
+const int SHAPE_SQUARE=0, SHAPE_CIRCLE=1, SHAPE_TRIANGLE=2, SHAPE_DIAMOND=3;
+const int MAX_CLICKS=10;
+uniform vec2  uClickPos[MAX_CLICKS];
+uniform float uClickTimes[MAX_CLICKS];
+out vec4 fragColor;
+
+float Bayer2(vec2 a){a=floor(a);return fract(a.x/2.+a.y*a.y*.75);}
+#define Bayer4(a) (Bayer2(.5*(a))*.25+Bayer2(a))
+#define Bayer8(a) (Bayer4(.5*(a))*.25+Bayer2(a))
+float hash11(float n){return fract(sin(n)*43758.5453);}
+float vnoise(vec3 p){
+  vec3 ip=floor(p),fp=fract(p);
+  float n000=hash11(dot(ip+vec3(0,0,0),vec3(1,57,113)));
+  float n100=hash11(dot(ip+vec3(1,0,0),vec3(1,57,113)));
+  float n010=hash11(dot(ip+vec3(0,1,0),vec3(1,57,113)));
+  float n110=hash11(dot(ip+vec3(1,1,0),vec3(1,57,113)));
+  float n001=hash11(dot(ip+vec3(0,0,1),vec3(1,57,113)));
+  float n101=hash11(dot(ip+vec3(1,0,1),vec3(1,57,113)));
+  float n011=hash11(dot(ip+vec3(0,1,1),vec3(1,57,113)));
+  float n111=hash11(dot(ip+vec3(1,1,1),vec3(1,57,113)));
+  vec3 w=fp*fp*fp*(fp*(fp*6.-15.)+10.);
+  return mix(mix(mix(n000,n100,w.x),mix(n010,n110,w.x),w.y),
+             mix(mix(n001,n101,w.x),mix(n011,n111,w.x),w.y),w.z)*2.-1.;
+}
+float fbm2(vec2 uv,float t){
+  vec3 p=vec3(uv*uScale,t);float amp=1.,freq=1.,sum=1.;
+  for(int i=0;i<5;++i){sum+=amp*vnoise(p*freq);freq*=1.25;amp*=1.;}
+  return sum*.5+.5;
+}
+float maskCircle(vec2 p,float cov){float r=sqrt(cov)*.25;float d=length(p-.5)-r;float aa=.5*fwidth(d);return cov*(1.-smoothstep(-aa,aa,d*2.));}
+float maskTriangle(vec2 p,vec2 id,float cov){bool flip=mod(id.x+id.y,2.)>.5;if(flip)p.x=1.-p.x;float r=sqrt(cov);float d=p.y-r*(1.-p.x);float aa=fwidth(d);return cov*clamp(.5-d/aa,0.,1.);}
+float maskDiamond(vec2 p,float cov){float r=sqrt(cov)*.564;return step(abs(p.x-.49)+abs(p.y-.49),r);}
+
+void main(){
+  float pixelSize=uPixelSize;
+  vec2 fragCoord=gl_FragCoord.xy-uResolution*.5;
+  float ar=uResolution.x/uResolution.y;
+  vec2 pixelId=floor(fragCoord/pixelSize);
+  vec2 pixelUV=fract(fragCoord/pixelSize);
+  float cellPixelSize=8.*pixelSize;
+  vec2 cellId=floor(fragCoord/cellPixelSize);
+  vec2 cellCoord=cellId*cellPixelSize;
+  vec2 uv=cellCoord/uResolution*vec2(ar,1.);
+  float base=fbm2(uv,uTime*.05);
+  base=base*.5-.65;
+  float feed=base+(uDensity-.5)*.3;
+  if(uEnableRipples==1){
+    for(int i=0;i<MAX_CLICKS;++i){
+      vec2 pos=uClickPos[i];if(pos.x<0.)continue;
+      float cellPixelSize2=8.*pixelSize;
+      vec2 cuv=(((pos-uResolution*.5-cellPixelSize2*.5)/uResolution))*vec2(ar,1.);
+      float t=max(uTime-uClickTimes[i],0.);
+      float r=distance(uv,cuv);
+      float waveR=uRippleSpeed*t;
+      float ring=exp(-pow((r-waveR)/uRippleThickness,2.));
+      float atten=exp(-1.*t)*exp(-10.*r);
+      feed=max(feed,ring*atten*uRippleIntensity);
+    }
+  }
+  float bayer=Bayer8(fragCoord/uPixelSize)-.5;
+  float bw=step(.5,feed+bayer);
+  float h=fract(sin(dot(floor(fragCoord/uPixelSize),vec2(127.1,311.7)))*43758.5453);
+  float jitterScale=1.+(h-.5)*uPixelJitter;
+  float coverage=bw*jitterScale;
+  float M;
+  if(uShapeType==SHAPE_CIRCLE) M=maskCircle(pixelUV,coverage);
+  else if(uShapeType==SHAPE_TRIANGLE) M=maskTriangle(pixelUV,pixelId,coverage);
+  else if(uShapeType==SHAPE_DIAMOND) M=maskDiamond(pixelUV,coverage);
+  else M=coverage;
+  if(uEdgeFade>0.){
+    vec2 norm=gl_FragCoord.xy/uResolution;
+    float edge=min(min(norm.x,norm.y),min(1.-norm.x,1.-norm.y));
+    float fade=smoothstep(0.,uEdgeFade,edge);
+    M*=fade;
+  }
+  vec3 color=uColor;
+  vec3 srgb=mix(color*12.92,1.055*pow(color,vec3(1./2.4))-.055,step(.0031308,color));
+  fragColor=vec4(srgb,M);
+}
+`;
+
+function initPixelBlast(container) {
+  const opts = {
+    variant: 'circle', pixelSize: 3, color: '#8BAFD4',
+    patternScale: 1.25, patternDensity: 1.2, pixelSizeJitter: 0.5,
+    enableRipples: true, rippleSpeed: 0.4, rippleThickness: 0.12, rippleIntensityScale: 1.5,
+    speed: 0.55, edgeFade: 0.27, transparent: true
+  };
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+  renderer.domElement.style.cssText = 'width:100%;height:100%;display:block;';
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  if (opts.transparent) renderer.setClearAlpha(0);
+  container.appendChild(renderer.domElement);
+
+  const uniforms = {
+    uResolution: { value: new THREE.Vector2() },
+    uTime:       { value: 0 },
+    uColor:      { value: new THREE.Color(opts.color) },
+    uClickPos:   { value: Array.from({ length: MAX_CLICKS }, () => new THREE.Vector2(-1, -1)) },
+    uClickTimes: { value: new Float32Array(MAX_CLICKS) },
+    uShapeType:  { value: SHAPE_MAP[opts.variant] ?? 1 },
+    uPixelSize:  { value: opts.pixelSize * renderer.getPixelRatio() },
+    uScale:      { value: opts.patternScale },
+    uDensity:    { value: opts.patternDensity },
+    uPixelJitter:    { value: opts.pixelSizeJitter },
+    uEnableRipples:  { value: opts.enableRipples ? 1 : 0 },
+    uRippleSpeed:    { value: opts.rippleSpeed },
+    uRippleThickness:{ value: opts.rippleThickness },
+    uRippleIntensity:{ value: opts.rippleIntensityScale },
+    uEdgeFade:       { value: opts.edgeFade }
+  };
+
+  const scene    = new THREE.Scene();
+  const camera   = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+  const material = new THREE.ShaderMaterial({
+    vertexShader: VERTEX_SRC, fragmentShader: FRAGMENT_SRC,
+    uniforms, transparent: true, depthTest: false, depthWrite: false,
+    glslVersion: THREE.GLSL3
+  });
+  scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material));
+
+  const setSize = () => {
+    const w = container.clientWidth || 1, h = container.clientHeight || 1;
+    renderer.setSize(w, h, false);
+    uniforms.uResolution.value.set(renderer.domElement.width, renderer.domElement.height);
+    uniforms.uPixelSize.value = opts.pixelSize * renderer.getPixelRatio();
+  };
+  setSize();
+  new ResizeObserver(setSize).observe(container);
+
+  let clickIx = 0;
+  const timeOffset = Math.random() * 1000;
+  const clock = new THREE.Clock();
+
+  renderer.domElement.addEventListener('pointerdown', e => {
+    const rect = renderer.domElement.getBoundingClientRect();
+    const scaleX = renderer.domElement.width / rect.width;
+    const scaleY = renderer.domElement.height / rect.height;
+    const fx = (e.clientX - rect.left) * scaleX;
+    const fy = (rect.height - (e.clientY - rect.top)) * scaleY;
+    uniforms.uClickPos.value[clickIx].set(fx, fy);
+    uniforms.uClickTimes.value[clickIx] = uniforms.uTime.value;
+    clickIx = (clickIx + 1) % MAX_CLICKS;
+  }, { passive: true });
+
+  (function animate() {
+    uniforms.uTime.value = timeOffset + clock.getElapsedTime() * opts.speed;
+    renderer.render(scene, camera);
+    requestAnimationFrame(animate);
+  })();
+}
+
+const pbContainer = document.getElementById('pixel-blast-bg');
+if (pbContainer) initPixelBlast(pbContainer);
 </script>
 
 </body>
