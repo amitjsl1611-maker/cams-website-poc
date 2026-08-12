@@ -1697,11 +1697,11 @@ function createLiquidEffect(texture, strength, freq) {
 /* ── Main init ── */
 function initPixelBlast(container) {
   const opts = {
-    variant: 'circle', pixelSize: 12, color: '#86C8FA',
+    variant: 'circle', pixelSize: 14, color: '#86C8FA',
     patternScale: 3, patternDensity: 1.2, pixelSizeJitter: 0.5,
     enableRipples: true, rippleSpeed: 0.4, rippleThickness: 0.12, rippleIntensityScale: 1.5,
     liquid: true, liquidStrength: 0.12, liquidRadius: 1.2, liquidWobbleSpeed: 5,
-    speed: 0.6, edgeFade: 0.25, transparent: true
+    speed: 1.1, edgeFade: 0.25, transparent: true
   };
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
