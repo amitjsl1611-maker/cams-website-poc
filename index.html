@@ -353,7 +353,7 @@ body {
   position: relative;
   overflow: hidden;
   width: 100%;
-  background: #0a1428;
+  background: #EDF5FF;
 }
 
 .hero-track {
@@ -395,16 +395,15 @@ body {
   font-weight: 400;
   line-height: 1.08;
   letter-spacing: -0.025em;
-  color: #ffffff;
+  color: #0D1421;
   margin-bottom: 16px;
-  text-shadow: 0 2px 24px rgba(0,0,0,0.18);
 }
 
 .hero-sub {
   font-size: 17px;
   font-weight: 400;
   line-height: 1.7;
-  color: rgba(255,255,255,0.78);
+  color: #3A4455;
   max-width: 520px;
   margin: 0 auto 40px;
 }
@@ -1584,12 +1583,14 @@ var FRAG = [
   '  vec2 pr=rot(p,uAngle); pr.x/=asp;',
   '  vec2 uv=pr*.5+.5;',
   '  vec3 base=grad(uv.x);',
-  '  vec2 off=vec2(uMouse.x/uRes.x,uMouse.y/uRes.y);',
-  '  float d=length(vUv-off);',
-  '  float spot=(1.-2.*pow(d/max(uSRadius,.001),uSSoft))*uSOpacity;',
   '  float stripe=fract(uv.x*max(uBlinds,1.));',
   '  if(uShineFlip>.5) stripe=1.-stripe;',
-  '  vec3 col=vec3(spot)+base-vec3(stripe);',
+  '  float edge=abs(stripe-0.5)*2.0;',
+  '  float gloss=1.0-pow(edge,2.0)*0.22;',
+  '  vec2 off=vec2(uMouse.x/uRes.x,uMouse.y/uRes.y);',
+  '  float d=length(vUv-off);',
+  '  float spot=exp(-d*d/(2.0*uSRadius*uSRadius))*uSOpacity*0.15;',
+  '  vec3 col=base*gloss+vec3(spot);',
   '  col+=(rand(gl_FragCoord.xy+uTime)-.5)*uNoise;',
   '  gl_FragColor=vec4(clamp(col,0.,1.),1.);',
   '}'
@@ -1601,9 +1602,9 @@ function hexRGB(h){
 }
 
 function initGradientBlinds(container) {
-  var COLORS = ['#EAF3FF','#C5DEFF','#9BC4F8','#4074E3','#264796'];
-  var CFG = { angle:15, noise:0.15, blinds:10, blindMinW:80,
-              sRadius:0.55, sSoft:1.1, sOpacity:0.9, shineFlip:0, dampening:0.18 };
+  var COLORS = ['#FFFFFF','#EBF4FF','#D3E9FF','#B8DBFF','#93C8FF'];
+  var CFG = { angle:12, noise:0.04, blinds:22, blindMinW:40,
+              sRadius:0.7, sSoft:0.8, sOpacity:0.85, shineFlip:0, dampening:0.6 };
 
   var canvas = document.createElement('canvas');
   canvas.style.cssText = 'width:100%;height:100%;display:block;';
@@ -1660,17 +1661,14 @@ function initGradientBlinds(container) {
   resize();
   new ResizeObserver(resize).observe(container);
 
-  canvas.addEventListener('pointermove', function(e) {
-    var r = canvas.getBoundingClientRect();
-    var dpr = Math.min(window.devicePixelRatio||1,2);
-    mouseTarget[0] = (e.clientX - r.left) * dpr;
-    mouseTarget[1] = (r.height - (e.clientY - r.top)) * dpr;
-  });
-
   var rafId=null, running=true, lastT=0;
   function loop(t) {
     rafId = requestAnimationFrame(loop);
     var dt = lastT ? (t-lastT)/1000 : 0; lastT=t;
+    /* soft auto-animation — gentle Lissajous drift */
+    var s = t * 0.00028;
+    mouseTarget[0] = (0.38 + 0.28 * Math.sin(s))       * W;
+    mouseTarget[1] = (0.52 + 0.22 * Math.cos(s * 0.61)) * H;
     var f = Math.min(1, 1 - Math.exp(-dt / Math.max(1e-4, CFG.dampening)));
     mouse[0] += (mouseTarget[0]-mouse[0])*f;
     mouse[1] += (mouseTarget[1]-mouse[1])*f;
