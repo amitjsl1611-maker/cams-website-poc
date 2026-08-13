@@ -353,7 +353,7 @@ body {
   position: relative;
   overflow: hidden;
   width: 100%;
-  background: #ffffff;
+  background: #0a1428;
 }
 
 .hero-track {
@@ -376,17 +376,17 @@ body {
 
 .hero-grid {
   width: 100%;
-  max-width: 1440px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 0 80px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  padding: 0 48px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 40px;
+  text-align: center;
   box-sizing: border-box;
 }
 
-.hero-left { position: relative; transform: translateY(-8px); }
+.hero-left { position: relative; width: 100%; }
 
 .hero-eyebrow { display: none; }
 
@@ -395,20 +395,21 @@ body {
   font-weight: 400;
   line-height: 1.08;
   letter-spacing: -0.025em;
-  color: var(--text-dark);
+  color: #ffffff;
   margin-bottom: 16px;
+  text-shadow: 0 2px 24px rgba(0,0,0,0.18);
 }
 
 .hero-sub {
   font-size: 17px;
   font-weight: 400;
   line-height: 1.7;
-  color: var(--text-muted);
-  max-width: 480px;
-  margin-bottom: 40px;
+  color: rgba(255,255,255,0.78);
+  max-width: 520px;
+  margin: 0 auto 40px;
 }
 
-.hero-ctas { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; position: relative; z-index: 2; }
+.hero-ctas { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; position: relative; z-index: 2; }
 
 .btn-primary {
   display: inline-flex;
@@ -594,15 +595,13 @@ body {
    PIXEL BLAST BACKGROUND
 ================================================================ */
 
-#pixel-blast-bg {
+#gradient-blinds-bg {
   position: absolute;
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(to right, black 44%, rgba(0,0,0,0.2) 52%, rgba(0,0,0,0.2) 82%, black 90%);
-  mask-image: linear-gradient(to right, black 44%, rgba(0,0,0,0.2) 52%, rgba(0,0,0,0.2) 82%, black 90%);
 }
-#pixel-blast-bg canvas {
+#gradient-blinds-bg canvas {
   width: 100% !important;
   height: 100% !important;
   display: block;
@@ -1253,7 +1252,7 @@ body {
      HERO
 ================================================================ -->
 <section class="hero" aria-label="CAMS hero" id="hero">
-  <div id="pixel-blast-bg" aria-hidden="true"></div>
+  <div id="gradient-blinds-bg" aria-hidden="true"></div>
   <div class="hero-track" id="heroTrack" aria-roledescription="carousel" aria-label="CAMS highlights">
 
     <!-- Slide 1 -->
@@ -1267,9 +1266,6 @@ body {
             <a href="#" class="btn-primary">Explore What We Do</a>
             <a href="#" class="btn-secondary">Investor Services</a>
           </div>
-        </div>
-        <div class="hero-right" aria-hidden="true">
-          <img src="cams-ecosystem.png" alt="CAMS Financial Ecosystem" class="hero-ecosystem-img" draggable="false">
         </div>
       </div>
     </div>
@@ -1286,9 +1282,6 @@ body {
             <a href="#" class="btn-secondary">Talk to CAMS</a>
           </div>
         </div>
-        <div class="hero-right" aria-hidden="true">
-          <img src="cams-ecosystem.png" alt="CAMS Financial Ecosystem" class="hero-ecosystem-img" draggable="false">
-        </div>
       </div>
     </div>
 
@@ -1303,9 +1296,6 @@ body {
             <a href="#" class="btn-primary">Discover CAMS</a>
             <a href="#" class="btn-secondary">Explore Solutions</a>
           </div>
-        </div>
-        <div class="hero-right" aria-hidden="true">
-          <img src="cams-ecosystem.png" alt="CAMS Financial Ecosystem" class="hero-ecosystem-img" draggable="false">
         </div>
       </div>
     </div>
@@ -1563,312 +1553,148 @@ function setSlide(n) {
 })();
 </script>
 
-<!-- PixelBlast hero background — Three.js + postprocessing liquid -->
-<script type="module">
-import * as THREE from 'three';
-import { Effect, EffectComposer, EffectPass, RenderPass } from 'postprocessing';
+<!-- GradientBlinds hero background — pure vanilla WebGL, no CDN deps -->
+<script>
+(function() {
 
-const SHAPE_MAP = { square: 0, circle: 1, triangle: 2, diamond: 3 };
-const MAX_CLICKS = 10;
+var VERT = [
+  'attribute vec2 aPos;',
+  'varying vec2 vUv;',
+  'void main() { vUv = aPos * 0.5 + 0.5; gl_Position = vec4(aPos, 0.0, 1.0); }'
+].join('\n');
 
-const VERTEX_SRC = `void main() { gl_Position = vec4(position, 1.0); }`;
+var FRAG = [
+  'precision mediump float;',
+  'uniform vec2 uRes, uMouse;',
+  'uniform float uTime, uAngle, uNoise, uBlinds, uSRadius, uSSoft, uSOpacity, uShineFlip;',
+  'uniform vec3 uC0,uC1,uC2,uC3,uC4;',
+  'varying vec2 vUv;',
+  'float rand(vec2 c){ return fract(sin(dot(c,vec2(12.9898,78.233)))*43758.5453); }',
+  'vec2 rot(vec2 p,float a){ float c=cos(a),s=sin(a); return vec2(c*p.x-s*p.y,s*p.x+c*p.y); }',
+  'vec3 grad(float t){',
+  '  t=clamp(t,0.,1.)*4.; float seg=floor(t),f=fract(t);',
+  '  if(seg<1.) return mix(uC0,uC1,f);',
+  '  if(seg<2.) return mix(uC1,uC2,f);',
+  '  if(seg<3.) return mix(uC2,uC3,f);',
+  '  return mix(uC3,uC4,f);',
+  '}',
+  'void main(){',
+  '  float asp=uRes.x/uRes.y;',
+  '  vec2 p=vUv*2.-1.; p.x*=asp;',
+  '  vec2 pr=rot(p,uAngle); pr.x/=asp;',
+  '  vec2 uv=pr*.5+.5;',
+  '  vec3 base=grad(uv.x);',
+  '  vec2 off=vec2(uMouse.x/uRes.x,uMouse.y/uRes.y);',
+  '  float d=length(vUv-off);',
+  '  float spot=(1.-2.*pow(d/max(uSRadius,.001),uSSoft))*uSOpacity;',
+  '  float stripe=fract(uv.x*max(uBlinds,1.));',
+  '  if(uShineFlip>.5) stripe=1.-stripe;',
+  '  vec3 col=vec3(spot)+base-vec3(stripe);',
+  '  col+=(rand(gl_FragCoord.xy+uTime)-.5)*uNoise;',
+  '  gl_FragColor=vec4(clamp(col,0.,1.),1.);',
+  '}'
+].join('\n');
 
-const FRAGMENT_SRC = `
-precision highp float;
-uniform vec3  uColor;
-uniform vec2  uResolution;
-uniform float uTime;
-uniform float uPixelSize;
-uniform float uScale;
-uniform float uDensity;
-uniform float uPixelJitter;
-uniform int   uEnableRipples;
-uniform float uRippleSpeed;
-uniform float uRippleThickness;
-uniform float uRippleIntensity;
-uniform float uEdgeFade;
-uniform int   uShapeType;
-const int SHAPE_SQUARE=0,SHAPE_CIRCLE=1,SHAPE_TRIANGLE=2,SHAPE_DIAMOND=3;
-const int MAX_CLICKS=10;
-uniform vec2  uClickPos[MAX_CLICKS];
-uniform float uClickTimes[MAX_CLICKS];
-out vec4 fragColor;
-
-float Bayer2(vec2 a){a=floor(a);return fract(a.x/2.+a.y*a.y*.75);}
-#define Bayer4(a) (Bayer2(.5*(a))*.25+Bayer2(a))
-#define Bayer8(a) (Bayer4(.5*(a))*.25+Bayer2(a))
-float hash11(float n){return fract(sin(n)*43758.5453);}
-float vnoise(vec3 p){
-  vec3 ip=floor(p),fp=fract(p);
-  float n000=hash11(dot(ip+vec3(0,0,0),vec3(1,57,113)));
-  float n100=hash11(dot(ip+vec3(1,0,0),vec3(1,57,113)));
-  float n010=hash11(dot(ip+vec3(0,1,0),vec3(1,57,113)));
-  float n110=hash11(dot(ip+vec3(1,1,0),vec3(1,57,113)));
-  float n001=hash11(dot(ip+vec3(0,0,1),vec3(1,57,113)));
-  float n101=hash11(dot(ip+vec3(1,0,1),vec3(1,57,113)));
-  float n011=hash11(dot(ip+vec3(0,1,1),vec3(1,57,113)));
-  float n111=hash11(dot(ip+vec3(1,1,1),vec3(1,57,113)));
-  vec3 w=fp*fp*fp*(fp*(fp*6.-15.)+10.);
-  return mix(mix(mix(n000,n100,w.x),mix(n010,n110,w.x),w.y),
-             mix(mix(n001,n101,w.x),mix(n011,n111,w.x),w.y),w.z)*2.-1.;
+function hexRGB(h){
+  h=h.replace('#','');
+  return [parseInt(h.slice(0,2),16)/255,parseInt(h.slice(2,4),16)/255,parseInt(h.slice(4,6),16)/255];
 }
-float fbm2(vec2 uv,float t){
-  vec3 p=vec3(uv*uScale,t);float amp=1.,freq=1.,sum=1.;
-  for(int i=0;i<5;++i){sum+=amp*vnoise(p*freq);freq*=1.25;amp*=1.;}
-  return sum*.5+.5;
-}
-float maskCircle(vec2 p,float cov){float r=sqrt(cov)*.25;float d=length(p-.5)-r;float aa=.5*fwidth(d);return cov*(1.-smoothstep(-aa,aa,d*2.));}
-float maskTriangle(vec2 p,vec2 id,float cov){bool flip=mod(id.x+id.y,2.)>.5;if(flip)p.x=1.-p.x;float r=sqrt(cov);float d=p.y-r*(1.-p.x);float aa=fwidth(d);return cov*clamp(.5-d/aa,0.,1.);}
-float maskDiamond(vec2 p,float cov){float r=sqrt(cov)*.564;return step(abs(p.x-.49)+abs(p.y-.49),r);}
 
-void main(){
-  float pixelSize=uPixelSize;
-  vec2 fragCoord=gl_FragCoord.xy-uResolution*.5;
-  float ar=uResolution.x/uResolution.y;
-  vec2 pixelId=floor(fragCoord/pixelSize);
-  vec2 pixelUV=fract(fragCoord/pixelSize);
-  float cellPixelSize=8.*pixelSize;
-  vec2 cellId=floor(fragCoord/cellPixelSize);
-  vec2 cellCoord=cellId*cellPixelSize;
-  vec2 uv=cellCoord/uResolution*vec2(ar,1.);
-  float base=fbm2(uv,uTime*.05);
-  base=base*.5-.65;
-  float feed=base+(uDensity-.5)*.3;
-  if(uEnableRipples==1){
-    for(int i=0;i<MAX_CLICKS;++i){
-      vec2 pos=uClickPos[i];if(pos.x<0.)continue;
-      float cps=8.*pixelSize;
-      vec2 cuv=(((pos-uResolution*.5-cps*.5)/uResolution))*vec2(ar,1.);
-      float t=max(uTime-uClickTimes[i],0.);
-      float r=distance(uv,cuv);
-      float ring=exp(-pow((r-uRippleSpeed*t)/uRippleThickness,2.));
-      float atten=exp(-1.*t)*exp(-10.*r);
-      feed=max(feed,ring*atten*uRippleIntensity);
-    }
+function initGradientBlinds(container) {
+  var COLORS = ['#EAF3FF','#C5DEFF','#9BC4F8','#4074E3','#264796'];
+  var CFG = { angle:15, noise:0.15, blinds:10, blindMinW:80,
+              sRadius:0.55, sSoft:1.1, sOpacity:0.9, shineFlip:0, dampening:0.18 };
+
+  var canvas = document.createElement('canvas');
+  canvas.style.cssText = 'width:100%;height:100%;display:block;';
+  container.appendChild(canvas);
+
+  var gl = canvas.getContext('webgl', { antialias:true, alpha:false });
+  if (!gl) return;
+
+  function compile(type, src) {
+    var s = gl.createShader(type);
+    gl.shaderSource(s, src); gl.compileShader(s); return s;
   }
-  float bayer=Bayer8(fragCoord/uPixelSize)-.5;
-  float bw=step(.5,feed+bayer);
-  float h=fract(sin(dot(floor(fragCoord/uPixelSize),vec2(127.1,311.7)))*43758.5453);
-  float coverage=bw*(1.+(h-.5)*uPixelJitter);
-  float M;
-  if(uShapeType==SHAPE_CIRCLE) M=maskCircle(pixelUV,coverage);
-  else if(uShapeType==SHAPE_TRIANGLE) M=maskTriangle(pixelUV,pixelId,coverage);
-  else if(uShapeType==SHAPE_DIAMOND) M=maskDiamond(pixelUV,coverage);
-  else M=coverage;
-  if(uEdgeFade>0.){
-    vec2 norm=gl_FragCoord.xy/uResolution;
-    float edge=min(min(norm.x,norm.y),min(1.-norm.x,1.-norm.y));
-    M*=smoothstep(0.,uEdgeFade,edge);
+  var prog = gl.createProgram();
+  gl.attachShader(prog, compile(gl.VERTEX_SHADER, VERT));
+  gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FRAG));
+  gl.linkProgram(prog); gl.useProgram(prog);
+
+  var buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,3,-1,-1,3]), gl.STATIC_DRAW);
+  var loc = gl.getAttribLocation(prog, 'aPos');
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+  function u(n){ return gl.getUniformLocation(prog,n); }
+  var uRes=u('uRes'),uMouse=u('uMouse'),uTime=u('uTime'),uAngle=u('uAngle'),
+      uNoise=u('uNoise'),uBlinds=u('uBlinds'),uSRadius=u('uSRadius'),
+      uSSoft=u('uSSoft'),uSOpacity=u('uSOpacity'),uShineFlip=u('uShineFlip'),
+      uC0=u('uC0'),uC1=u('uC1'),uC2=u('uC2'),uC3=u('uC3'),uC4=u('uC4');
+
+  var c = COLORS.map(hexRGB);
+  gl.uniform3fv(uC0,c[0]); gl.uniform3fv(uC1,c[1]); gl.uniform3fv(uC2,c[2]);
+  gl.uniform3fv(uC3,c[3]); gl.uniform3fv(uC4,c[4]);
+  gl.uniform1f(uAngle, CFG.angle * Math.PI / 180);
+  gl.uniform1f(uNoise, CFG.noise);
+  gl.uniform1f(uSRadius, CFG.sRadius);
+  gl.uniform1f(uSSoft, CFG.sSoft);
+  gl.uniform1f(uSOpacity, CFG.sOpacity);
+  gl.uniform1f(uShineFlip, CFG.shineFlip);
+
+  var W=0, H=0, mouse=[0,0], mouseTarget=[0,0];
+
+  function resize() {
+    var r = container.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio||1, 2);
+    W = Math.round(r.width*dpr); H = Math.round(r.height*dpr);
+    canvas.width = W; canvas.height = H;
+    gl.viewport(0,0,W,H);
+    gl.uniform2f(uRes,W,H);
+    var maxByMin = CFG.blindMinW>0 ? Math.max(1,Math.floor(r.width/CFG.blindMinW)) : CFG.blinds;
+    gl.uniform1f(uBlinds, Math.max(1, Math.min(CFG.blinds, maxByMin)));
+    mouse[0]=W/2; mouse[1]=H/2; mouseTarget[0]=W/2; mouseTarget[1]=H/2;
   }
-  vec3 c=uColor;
-  vec3 srgb=mix(c*12.92,1.055*pow(c,vec3(1./2.4))-.055,step(.0031308,c));
-  fragColor=vec4(srgb,M);
-}
-`;
+  resize();
+  new ResizeObserver(resize).observe(container);
 
-/* ── Touch texture for liquid distortion ── */
-function createTouchTexture(liquidRadius) {
-  const size = 64;
-  const canvas = document.createElement('canvas');
-  canvas.width = canvas.height = size;
-  const ctx = canvas.getContext('2d');
-  ctx.fillStyle = 'black';
-  ctx.fillRect(0, 0, size, size);
-  const texture = new THREE.Texture(canvas);
-  texture.minFilter = texture.magFilter = THREE.LinearFilter;
-  texture.generateMipmaps = false;
-  const trail = [];
-  let last = null;
-  const maxAge = 64;
-  let radius = 0.1 * size * (liquidRadius ?? 1);
-  const spd = 1 / maxAge;
-  const clear = () => { ctx.fillStyle = 'black'; ctx.fillRect(0, 0, size, size); };
-  const drawPoint = p => {
-    const pos = { x: p.x * size, y: (1 - p.y) * size };
-    const easeOutSine = t => Math.sin((t * Math.PI) / 2);
-    const easeOutQuad = t => -t * (t - 2);
-    let intensity = p.age < maxAge * 0.3
-      ? easeOutSine(p.age / (maxAge * 0.3))
-      : (easeOutQuad(1 - (p.age - maxAge * 0.3) / (maxAge * 0.7)) || 0);
-    intensity *= p.force;
-    const col = `${((p.vx + 1) / 2) * 255},${((p.vy + 1) / 2) * 255},${intensity * 255}`;
-    const offset = size * 5;
-    ctx.shadowOffsetX = ctx.shadowOffsetY = offset;
-    ctx.shadowBlur = radius;
-    ctx.shadowColor = `rgba(${col},${0.22 * intensity})`;
-    ctx.beginPath();
-    ctx.fillStyle = 'rgba(255,0,0,1)';
-    ctx.arc(pos.x - offset, pos.y - offset, radius, 0, Math.PI * 2);
-    ctx.fill();
-  };
-  const addTouch = norm => {
-    let force = 0, vx = 0, vy = 0;
-    if (last) {
-      const dx = norm.x - last.x, dy = norm.y - last.y;
-      if (dx === 0 && dy === 0) return;
-      const d = Math.sqrt(dx * dx + dy * dy);
-      vx = dx / (d || 1); vy = dy / (d || 1);
-      force = Math.min((dx * dx + dy * dy) * 10000, 1);
-    }
-    last = { x: norm.x, y: norm.y };
-    trail.push({ x: norm.x, y: norm.y, age: 0, force, vx, vy });
-  };
-  const update = () => {
-    clear();
-    for (let i = trail.length - 1; i >= 0; i--) {
-      const pt = trail[i];
-      const f = pt.force * spd * (1 - pt.age / maxAge);
-      pt.x += pt.vx * f; pt.y += pt.vy * f; pt.age++;
-      if (pt.age > maxAge) trail.splice(i, 1);
-    }
-    trail.forEach(drawPoint);
-    texture.needsUpdate = true;
-  };
-  return { texture, addTouch, update };
-}
-
-/* ── Liquid postprocessing effect ── */
-function createLiquidEffect(texture, strength, freq) {
-  return new Effect('LiquidEffect', `
-    uniform sampler2D uTexture;
-    uniform float uStrength;
-    uniform float uTime;
-    uniform float uFreq;
-    void mainUv(inout vec2 uv) {
-      vec4 tex = texture2D(uTexture, uv);
-      float vx = tex.r * 2.0 - 1.0;
-      float vy = tex.g * 2.0 - 1.0;
-      float intensity = tex.b;
-      float wave = 0.5 + 0.5 * sin(uTime * uFreq + intensity * 6.2831853);
-      uv += vec2(vx, vy) * uStrength * intensity * wave;
-    }
-  `, {
-    uniforms: new Map([
-      ['uTexture',  new THREE.Uniform(texture)],
-      ['uStrength', new THREE.Uniform(strength ?? 0.12)],
-      ['uTime',     new THREE.Uniform(0)],
-      ['uFreq',     new THREE.Uniform(freq ?? 5)]
-    ])
+  canvas.addEventListener('pointermove', function(e) {
+    var r = canvas.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio||1,2);
+    mouseTarget[0] = (e.clientX - r.left) * dpr;
+    mouseTarget[1] = (r.height - (e.clientY - r.top)) * dpr;
   });
-}
 
-/* ── Main init ── */
-function initPixelBlast(container) {
-  const opts = {
-    variant: 'circle', pixelSize: 14, color: '#7DB8E8',
-    patternScale: 3.5, patternDensity: 0.85, pixelSizeJitter: 0.85,
-    enableRipples: true, rippleSpeed: 0.4, rippleThickness: 0.12, rippleIntensityScale: 1.5,
-    liquid: true, liquidStrength: 0.12, liquidRadius: 1.2, liquidWobbleSpeed: 5,
-    speed: 1.8, edgeFade: 0.08, transparent: true
-  };
-
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
-  renderer.domElement.style.cssText = 'width:100%;height:100%;display:block;';
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-  renderer.setClearAlpha(0);
-  container.appendChild(renderer.domElement);
-
-  const uniforms = {
-    uResolution: { value: new THREE.Vector2() },
-    uTime:       { value: 0 },
-    uColor:      { value: new THREE.Color(opts.color) },
-    uClickPos:   { value: Array.from({ length: MAX_CLICKS }, () => new THREE.Vector2(-1, -1)) },
-    uClickTimes: { value: new Float32Array(MAX_CLICKS) },
-    uShapeType:  { value: SHAPE_MAP[opts.variant] },
-    uPixelSize:  { value: opts.pixelSize * renderer.getPixelRatio() },
-    uScale:      { value: opts.patternScale },
-    uDensity:    { value: opts.patternDensity },
-    uPixelJitter:     { value: opts.pixelSizeJitter },
-    uEnableRipples:   { value: 1 },
-    uRippleSpeed:     { value: opts.rippleSpeed },
-    uRippleThickness: { value: opts.rippleThickness },
-    uRippleIntensity: { value: opts.rippleIntensityScale },
-    uEdgeFade:        { value: opts.edgeFade }
-  };
-
-  const scene    = new THREE.Scene();
-  const camera   = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-  const material = new THREE.ShaderMaterial({
-    vertexShader: VERTEX_SRC, fragmentShader: FRAGMENT_SRC,
-    uniforms, transparent: true, depthTest: false, depthWrite: false,
-    glslVersion: THREE.GLSL3
-  });
-  scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material));
-
-  /* liquid setup */
-  const touch       = createTouchTexture(opts.liquidRadius);
-  const liquidFx    = createLiquidEffect(touch.texture, opts.liquidStrength, opts.liquidWobbleSpeed);
-  const composer    = new EffectComposer(renderer);
-  const renderPass  = new RenderPass(scene, camera);
-  const effectPass  = new EffectPass(camera, liquidFx);
-  effectPass.renderToScreen = true;
-  composer.addPass(renderPass);
-  composer.addPass(effectPass);
-
-  const setSize = () => {
-    const w = container.clientWidth || 1, h = container.clientHeight || 1;
-    renderer.setSize(w, h, false);
-    composer.setSize(renderer.domElement.width, renderer.domElement.height);
-    uniforms.uResolution.value.set(renderer.domElement.width, renderer.domElement.height);
-    uniforms.uPixelSize.value = opts.pixelSize * renderer.getPixelRatio();
-  };
-  setSize();
-  new ResizeObserver(setSize).observe(container);
-
-  /* map pointer events to renderer pixel space */
-  const mapPx = e => {
-    const rect = renderer.domElement.getBoundingClientRect();
-    const sx = renderer.domElement.width  / rect.width;
-    const sy = renderer.domElement.height / rect.height;
-    return {
-      fx: (e.clientX - rect.left) * sx,
-      fy: (rect.height - (e.clientY - rect.top)) * sy,
-      w: renderer.domElement.width,
-      h: renderer.domElement.height
-    };
-  };
-
-  let clickIx = 0;
-  renderer.domElement.addEventListener('pointerdown', e => {
-    const { fx, fy } = mapPx(e);
-    uniforms.uClickPos.value[clickIx].set(fx, fy);
-    uniforms.uClickTimes.value[clickIx] = uniforms.uTime.value;
-    clickIx = (clickIx + 1) % MAX_CLICKS;
-  }, { passive: true });
-
-  renderer.domElement.addEventListener('pointermove', e => {
-    const { fx, fy, w, h } = mapPx(e);
-    touch.addTouch({ x: fx / w, y: fy / h });
-  }, { passive: true });
-
-  const timeOffset = (crypto.getRandomValues(new Uint32Array(1))[0] / 0xffffffff) * 1000;
-  const clock = new THREE.Clock();
-
-  let rafId = null;
-  let running = true;
-
-  function animate() {
+  var rafId=null, running=true, lastT=0;
+  function loop(t) {
+    rafId = requestAnimationFrame(loop);
+    var dt = lastT ? (t-lastT)/1000 : 0; lastT=t;
+    var f = Math.min(1, 1 - Math.exp(-dt / Math.max(1e-4, CFG.dampening)));
+    mouse[0] += (mouseTarget[0]-mouse[0])*f;
+    mouse[1] += (mouseTarget[1]-mouse[1])*f;
     if (!running) return;
-    const t = timeOffset + clock.getElapsedTime() * opts.speed;
-    uniforms.uTime.value = t;
-    const uT = liquidFx.uniforms.get('uTime');
-    if (uT) uT.value = t;
-    touch.update();
-    composer.render();
-    rafId = requestAnimationFrame(animate);
+    gl.uniform1f(uTime, t*0.001);
+    gl.uniform2fv(uMouse, mouse);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
   }
 
-  new IntersectionObserver(([entry]) => {
-    running = entry.isIntersecting;
-    if (running && !rafId) animate();
-    if (!running && rafId) { cancelAnimationFrame(rafId); rafId = null; }
-  }, { threshold: 0 }).observe(container);
+  new IntersectionObserver(function(entries) {
+    running = entries[0].isIntersecting;
+    if (running && !rafId) rafId = requestAnimationFrame(loop);
+    if (!running && rafId) { cancelAnimationFrame(rafId); rafId=null; }
+  }, { threshold:0 }).observe(container);
 
-  animate();
+  rafId = requestAnimationFrame(loop);
 }
 
-const pbContainer = document.getElementById('pixel-blast-bg');
-if (pbContainer) initPixelBlast(pbContainer);
+var gbContainer = document.getElementById('gradient-blinds-bg');
+if (gbContainer) initGradientBlinds(gbContainer);
+
+})();
+</script>
+
 
 /* SpotlightCard effect for eco-cards */
 document.querySelectorAll('.eco-card').forEach(card => {
