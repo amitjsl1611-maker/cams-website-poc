@@ -23,6 +23,31 @@
   --bg-subtle:    #F5F8FD;
   --white:        #FFFFFF;
   --nav-h:        96px;
+  /* surface tokens used in dark mode */
+  --surface-body: #FFFFFF;
+  --surface-nav:  rgba(255,255,255,0.75);
+  --surface-nav-scrolled: rgba(255,255,255,0.88);
+  --surface-card: #FFFFFF;
+  --surface-section: #EFF5F8;
+  --surface-ticker: #FFFFFF;
+}
+
+[data-theme="dark"] {
+  --blue-primary: #6B9BF7;
+  --blue-action:  #4D8EE8;
+  --blue-light:   #7EACFF;
+  --text-dark:    #E8EDF5;
+  --text-mid:     #A8B4C6;
+  --text-muted:   #6B7A8D;
+  --border:       #2A3347;
+  --bg-subtle:    #131B2A;
+  --white:        #1A2337;
+  --surface-body: #0F1621;
+  --surface-nav:  rgba(15,22,33,0.82);
+  --surface-nav-scrolled: rgba(15,22,33,0.95);
+  --surface-card: #1E2A3E;
+  --surface-section: #141E30;
+  --surface-ticker: #0F1621;
 }
 
 html {
@@ -32,10 +57,11 @@ html {
 body {
   font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--text-dark);
-  background: var(--white);
+  background: var(--surface-body);
   -webkit-font-smoothing: antialiased;
   width: 100%;
   overflow-x: clip;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 /* ================================================================
@@ -46,14 +72,14 @@ body {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 1000;
-  background: rgba(255,255,255,0.75);
+  background: var(--surface-nav);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid rgba(255,255,255,0.4);
   transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 .nav.scrolled {
-  background: rgba(255,255,255,0.88);
+  background: var(--surface-nav-scrolled);
   box-shadow: 0 1px 32px rgba(13,20,33,0.08);
 }
 
@@ -132,6 +158,29 @@ body {
   transition: color 0.15s, background 0.15s;
 }
 .nav-link-plain:hover { color: var(--blue-primary); background: rgba(38,71,150,0.05); }
+
+/* ── Dark mode toggle ── */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+  flex-shrink: 0;
+}
+.theme-toggle:hover { color: var(--blue-primary); background: rgba(38,71,150,0.07); }
+.theme-toggle svg { width: 18px; height: 18px; display: block; }
+/* show/hide sun vs moon */
+.theme-toggle .icon-moon { display: block; }
+.theme-toggle .icon-sun  { display: none; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun  { display: block; }
 
 .nav-btn-investor {
   display: inline-flex;
@@ -782,7 +831,28 @@ body {
 
 /* card colour palette */
 .eco-card-1, .eco-card-2, .eco-card-3,
-.eco-card-4, .eco-card-5, .eco-card-6 { background: #ffffff; }
+.eco-card-4, .eco-card-5, .eco-card-6 { background: var(--surface-card); }
+
+/* ================================================================
+   DARK MODE OVERRIDES
+================================================================ */
+
+[data-theme="dark"] .ticker-section { background: var(--surface-ticker); }
+[data-theme="dark"] .ecosystem-section { background: var(--surface-section); }
+[data-theme="dark"] .eco-card { border-color: var(--border); box-shadow: 0 1px 12px rgba(0,0,0,0.3); }
+[data-theme="dark"] .ticker-logo img { filter: grayscale(1) opacity(0.5) invert(1); }
+[data-theme="dark"] .ticker-item:hover .ticker-logo img { filter: grayscale(0) opacity(0.9) invert(0); }
+[data-theme="dark"] .hero { background: var(--surface-body); }
+[data-theme="dark"] .mega-wrap { background: #1A2337; border-color: var(--border); }
+[data-theme="dark"] .mega-col-title { color: var(--text-muted); }
+[data-theme="dark"] .mega-link { color: var(--text-mid); }
+[data-theme="dark"] .mega-link:hover { color: var(--blue-light); }
+[data-theme="dark"] .btn-secondary {
+  background: transparent;
+  border-color: rgba(78,140,230,0.4);
+  color: var(--blue-light);
+}
+[data-theme="dark"] .btn-secondary:hover { background: rgba(78,140,230,0.1); }
 
 /* ================================================================
    UTILITY
@@ -899,6 +969,20 @@ body {
 
     <!-- Right rail -->
     <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <!-- Moon icon (shown in light mode) -->
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <!-- Sun icon (shown in dark mode) -->
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </button>
       <a href="#" class="nav-link-plain">Contact Us</a>
       <button class="nav-btn-investor" data-menu="investor-services" aria-expanded="false" aria-haspopup="true">
         <span>Investor Services</span>
@@ -1460,6 +1544,23 @@ function setSlide(n) {
 }
 
 // Carousel autoplay disabled — single hero view
+
+/* ── Dark mode toggle ── */
+(function() {
+  const btn = document.getElementById('themeToggle');
+  const saved = localStorage.getItem('cams-theme');
+  if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+  btn.addEventListener('click', () => {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('cams-theme', 'light');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('cams-theme', 'dark');
+    }
+  });
+})();
 </script>
 
 <!-- PixelBlast hero background — Three.js + postprocessing liquid -->
