@@ -636,15 +636,27 @@ body {
 .v2-manifesto {
   display: none;
   background: #ffffff;
-  padding: 120px 0 140px;
+  padding: 100px 0 140px;
+  position: relative;
+}
+/* fade bleed — hero bg bleeds into top of this section */
+body[data-hv="2"] .v2-manifesto::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  left: 0; right: 0;
+  height: 160px;
+  background: linear-gradient(to bottom, transparent, #ffffff);
+  pointer-events: none;
+  z-index: 5;
 }
 body[data-hv="2"] .v2-manifesto { display: block; }
 body[data-hv="2"] .ticker-section { display: none; }
 
 .v2-manifesto-inner {
-  max-width: 1100px;
+  max-width: 1320px;
   margin: 0 auto;
-  padding: 0 80px;
+  padding: 0 40px;
 }
 
 .v2-eyebrow {
@@ -653,13 +665,13 @@ body[data-hv="2"] .ticker-section { display: none; }
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #1776D1;
-  margin-bottom: 40px;
+  margin-bottom: 36px;
 }
 
 .v2-body {
   font-size: 56px;
   font-weight: 400;
-  line-height: 1.35;
+  line-height: 1.18;
   letter-spacing: -0.02em;
   color: #0D1421;
   text-align: left;
@@ -1525,7 +1537,7 @@ body[data-hv="2"] .v2-scroll-arrow { display: flex; }
 <section class="v2-manifesto" id="v2Manifesto" aria-label="About CAMS">
   <div class="v2-manifesto-inner">
     <p class="v2-eyebrow">What is CAMS</p>
-    <p class="v2-body" id="v2ManifestoText">CAMS is India's largest financial infrastructure and technology company — the backbone of how the country saves, invests, and grows. For over 25 years, we have built the rails that connect 50 million investors to their wealth every single day.</p>
+    <p class="v2-body" id="v2ManifestoText">CAMS is India's largest financial infrastructure company — the backbone of how India saves, invests, and grows every day.</p>
   </div>
 </section>
 
