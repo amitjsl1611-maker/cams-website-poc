@@ -657,11 +657,12 @@ body[data-hv="2"] .ticker-section { display: none; }
 }
 
 .v2-body {
-  font-size: 42px;
-  font-weight: 300;
-  line-height: 1.45;
-  letter-spacing: -0.01em;
+  font-size: 56px;
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
   color: #0D1421;
+  text-align: left;
 }
 
 .v2-body .word {
@@ -672,62 +673,52 @@ body[data-hv="2"] .ticker-section { display: none; }
 .v2-body .word.lit { color: rgba(13, 20, 33, 1); }
 
 /* ── Variant 2: centred stack layout ── */
+.hero[data-variant="2"] .hero-slide {
+  align-items: center;
+  justify-content: center;
+}
 .hero[data-variant="2"] .hero-grid {
   grid-template-columns: 1fr;
-  grid-template-rows: auto auto;
   text-align: center;
-  max-width: 860px;
+  max-width: 960px;
   margin: 0 auto;
-  padding-top: 12px;
-  padding-bottom: 0;
-  gap: 40px;
+  padding: 0 60px;
+  gap: 0;
 }
 .hero[data-variant="2"] .hero-left {
-  order: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.hero[data-variant="2"] .hero-right {
-  display: none !important;
-}
-.hero[data-variant="2"] .hero-ctas {
-  justify-content: center;
-}
-.hero[data-variant="2"] .hero-eyebrow {
-  text-align: center;
+.hero[data-variant="2"] .hero-right { display: none !important; }
+.hero[data-variant="2"] .hero-sub   { display: none !important; }
+.hero[data-variant="2"] .hero-ctas  { display: none !important; }
+.hero[data-variant="2"] .hero-eyebrow { text-align: center; }
+.hero[data-variant="2"] .hero-h1 {
+  font-size: 112px;
+  line-height: 1;
+  letter-spacing: -0.04em;
 }
 
-.hero[data-variant="3"] {
-  background: #ffffff url('') no-repeat !important;
+/* Pulsating scroll arrow — variant 2 only */
+.v2-scroll-arrow {
+  display: none;
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  color: rgba(255,255,255,0.7);
+  animation: v2-bob 1.6s ease-in-out infinite;
 }
-.hero[data-variant="3"] .hero-h1 { color: #0D1421; }
-.hero[data-variant="3"] .hero-sub { color: #3A4455; }
-.hero[data-variant="3"] .btn-primary {
-  color: var(--white);
-  background: #1776D1;
-  border-color: #1776D1;
+body[data-hv="2"] .v2-scroll-arrow { display: flex; }
+.v2-scroll-arrow svg { width: 32px; height: 32px; }
+@keyframes v2-bob {
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.7; }
+  50%       { transform: translateX(-50%) translateY(10px); opacity: 1; }
 }
-.hero[data-variant="3"] .btn-secondary {
-  color: #1776D1;
-  background: #ffffff;
-  border-color: rgba(23,118,209,0.35);
-}
-.hero[data-variant="3"] .variant-tab {
-  border-color: rgba(23,118,209,0.4);
-  color: #1776D1;
-}
-.hero[data-variant="3"] .variant-tab:hover {
-  background: rgba(23,118,209,0.08);
-  border-color: #1776D1;
-}
-.hero[data-variant="3"] .variant-tab.active {
-  background: #1776D1;
-  border-color: #1776D1;
-  color: #ffffff;
-}
-.hero[data-variant="3"] #pixel-blast-bg { display: block; }
-.hero:not([data-variant="3"]) #pixel-blast-bg { display: none; }
+
+#pixel-blast-bg { display: none; }
 
 #pixel-blast-bg {
   position: absolute;
@@ -1397,11 +1388,17 @@ body[data-hv="2"] .ticker-section { display: none; }
 <section class="hero" aria-label="CAMS hero" id="hero" data-variant="1">
   <div id="pixel-blast-bg" aria-hidden="true"></div>
 
+  <!-- Scroll-down arrow (variant 2 only) -->
+  <div class="v2-scroll-arrow" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 5v14M5 13l7 7 7-7"/>
+    </svg>
+  </div>
+
   <!-- Variant switcher tabs (bottom-right, client preview only) -->
   <div class="variant-tabs" aria-label="Hero variant switcher">
     <button class="variant-tab active" data-v="1">1</button>
     <button class="variant-tab" data-v="2">2</button>
-    <button class="variant-tab" data-v="3">3</button>
   </div>
   <div class="hero-track" id="heroTrack" aria-roledescription="carousel" aria-label="CAMS highlights">
 
@@ -1528,7 +1525,7 @@ body[data-hv="2"] .ticker-section { display: none; }
 <section class="v2-manifesto" id="v2Manifesto" aria-label="About CAMS">
   <div class="v2-manifesto-inner">
     <p class="v2-eyebrow">What is CAMS</p>
-    <p class="v2-body" id="v2ManifestoText">CAMS is India's largest financial infrastructure and technology company. For over 25 years we have built the rails that power the country's investment ecosystem. We process more than 65% of India's mutual fund transactions, connecting 50 million investors to their wealth every single day. We run insurance repositories, digital payments, data intelligence platforms, and digital onboarding infrastructure for over 200 financial institutions. We are not just a service provider. We are the backbone of how India saves, invests, and grows.</p>
+    <p class="v2-body" id="v2ManifestoText">CAMS is India's largest financial infrastructure and technology company — the backbone of how the country saves, invests, and grows. For over 25 years, we have built the rails that connect 50 million investors to their wealth every single day.</p>
   </div>
 </section>
 
@@ -2044,8 +2041,7 @@ var pbInitialised = false;
 
   var BG = {
     '1': "#1776D1 url('Hero Option 1.png') right center / cover no-repeat",
-    '2': "url('Hero option 2.png?v=" + Date.now() + "') center center / cover no-repeat",
-    '3': '#ffffff'
+    '2': "url('Hero option 2.png?v=" + Date.now() + "') center center / cover no-repeat"
   };
 
   function switchVariant(v) {
@@ -2055,13 +2051,6 @@ var pbInitialised = false;
     tabs.forEach(function(t) {
       t.classList.toggle('active', t.dataset.v === v);
     });
-    /* pixel burst: init + show only on variant 3 */
-    if (v === '3') {
-      if (!pbInitialised && pbContainer) {
-        initPixelBlast(pbContainer);
-        pbInitialised = true;
-      }
-    }
   }
 
   tabs.forEach(function(t) {
