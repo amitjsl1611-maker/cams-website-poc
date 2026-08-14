@@ -819,8 +819,8 @@ body[data-hv="3"] .nav:not(.scrolled) .nav-trigger { color: #000000; }
 body[data-hv="3"] .nav:not(.scrolled) .nav-trigger:hover { color: #000000; background: rgba(0,0,0,0.07); }
 body[data-hv="3"] .nav:not(.scrolled) .nav-link-plain { color: #000000; }
 body[data-hv="3"] .nav:not(.scrolled) .nav-link-plain:hover { color: #000000; }
-body[data-hv="3"] .nav:not(.scrolled) .nav-btn-investor { color: #1776D1; background: transparent; border-color: rgba(23,118,209,0.4); }
-body[data-hv="3"] .nav:not(.scrolled) .nav-btn-investor:hover { background: rgba(23,118,209,0.08); border-color: #1776D1; }
+body[data-hv="3"] .nav:not(.scrolled) .nav-btn-investor { color: #0D1421; background: transparent; border-color: #0D1421; }
+body[data-hv="3"] .nav:not(.scrolled) .nav-btn-investor:hover { background: rgba(13,20,33,0.07); border-color: #0D1421; }
 body[data-hv="4"] .nav:not(.scrolled) .nav-logo img { filter: none; }
 body[data-hv="4"] .nav:not(.scrolled) .nav-trigger { color: var(--text-mid); }
 body[data-hv="4"] .nav:not(.scrolled) .nav-trigger:hover { color: var(--text-dark); background: rgba(0,0,0,0.05); }
@@ -1222,15 +1222,23 @@ body[data-hv="3"] .v3-slide-link:hover { color: #ffffff; }
   height: auto;
   display: block;
 }
-.v3-slide-title {
+.v3-slide-card-text {
   position: absolute;
   top: 20px;
   left: 20px;
   right: 20px;
+}
+.v3-slide-title {
   font-size: 28px;
   font-weight: 600;
   color: #0D1421;
   line-height: 1.3;
+  margin: 0 0 6px;
+}
+.v3-slide-card-desc {
+  font-size: 13px;
+  color: rgba(13,20,33,0.55);
+  line-height: 1.5;
   margin: 0;
 }
 
@@ -1958,60 +1966,60 @@ body[data-hv="3"] .v3-slide-link:hover { color: #ffffff; }
         <div class="v3-slide">
           <div class="v3-slide-img">
             <img src="card1.png" alt="Mutual Fund RTA">
-            <h3 class="v3-slide-title">Mutual Fund RTA</h3>
-          </div>
-          <div class="v3-slide-body">
-            <p class="v3-slide-desc">India's largest registry, 50M+ folios.</p>
+            <div class="v3-slide-card-text">
+              <h3 class="v3-slide-title">Mutual Fund RTA</h3>
+              <p class="v3-slide-card-desc">India's largest registry, 50M+ folios.</p>
+            </div>
           </div>
         </div>
 
         <div class="v3-slide">
           <div class="v3-slide-img">
             <img src="card 2.png" alt="Bima Central">
-            <h3 class="v3-slide-title">Bima Central</h3>
-          </div>
-          <div class="v3-slide-body">
-            <p class="v3-slide-desc">One digital home for all your policies.</p>
+            <div class="v3-slide-card-text">
+              <h3 class="v3-slide-title">Bima Central</h3>
+              <p class="v3-slide-card-desc">One digital home for all your policies.</p>
+            </div>
           </div>
         </div>
 
         <div class="v3-slide">
           <div class="v3-slide-img">
             <img src="card 3.png" alt="CAMS Pay">
-            <h3 class="v3-slide-title">CAMS Pay</h3>
-          </div>
-          <div class="v3-slide-body">
-            <p class="v3-slide-desc">Fast, reliable SIP and dividend payments.</p>
+            <div class="v3-slide-card-text">
+              <h3 class="v3-slide-title">CAMS Pay</h3>
+              <p class="v3-slide-card-desc">Fast, reliable SIP and dividend payments.</p>
+            </div>
           </div>
         </div>
 
         <div class="v3-slide">
           <div class="v3-slide-img">
             <img src="card 4.png" alt="Data & Analytics">
-            <h3 class="v3-slide-title">Data &amp; Analytics</h3>
-          </div>
-          <div class="v3-slide-body">
-            <p class="v3-slide-desc">25+ years of financial data intelligence.</p>
+            <div class="v3-slide-card-text">
+              <h3 class="v3-slide-title">Data &amp; Analytics</h3>
+              <p class="v3-slide-card-desc">25+ years of financial data intelligence.</p>
+            </div>
           </div>
         </div>
 
         <div class="v3-slide">
           <div class="v3-slide-img">
             <img src="card 5.png" alt="Technology Platform">
-            <h3 class="v3-slide-title">Technology Platform</h3>
-          </div>
-          <div class="v3-slide-body">
-            <p class="v3-slide-desc">APIs and white-label tools for fintechs.</p>
+            <div class="v3-slide-card-text">
+              <h3 class="v3-slide-title">Technology Platform</h3>
+              <p class="v3-slide-card-desc">APIs and white-label tools for fintechs.</p>
+            </div>
           </div>
         </div>
 
         <div class="v3-slide">
           <div class="v3-slide-img">
             <img src="card 6.png" alt="Digital Onboarding">
-            <h3 class="v3-slide-title">Digital Onboarding</h3>
-          </div>
-          <div class="v3-slide-body">
-            <p class="v3-slide-desc">eKYC for 200+ financial institutions.</p>
+            <div class="v3-slide-card-text">
+              <h3 class="v3-slide-title">Digital Onboarding</h3>
+              <p class="v3-slide-card-desc">eKYC for 200+ financial institutions.</p>
+            </div>
           </div>
         </div>
 
