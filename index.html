@@ -711,6 +711,15 @@ body[data-hv="2"] .ticker-section { display: none; }
 .hero[data-variant="2"] .hero-sub   { color: #3A4455; }
 .hero[data-variant="2"] .hero-ctas  { justify-content: center; }
 
+/* Variant 2 nav colours (white hero = dark nav) */
+body[data-hv="2"] .nav:not(.scrolled) .nav-logo img { filter: none; }
+body[data-hv="2"] .nav:not(.scrolled) .nav-trigger { color: var(--text-mid); }
+body[data-hv="2"] .nav:not(.scrolled) .nav-trigger:hover { color: var(--text-dark); background: rgba(0,0,0,0.05); }
+body[data-hv="2"] .nav:not(.scrolled) .nav-link-plain { color: var(--text-mid); }
+body[data-hv="2"] .nav:not(.scrolled) .nav-link-plain:hover { color: var(--text-dark); }
+body[data-hv="2"] .nav:not(.scrolled) .nav-btn-investor { color: #1776D1; background: transparent; border-color: rgba(23,118,209,0.4); }
+body[data-hv="2"] .nav:not(.scrolled) .nav-btn-investor:hover { background: rgba(23,118,209,0.06); border-color: #1776D1; }
+
 /* Variant 2 CTA colours */
 .hero[data-variant="2"] .btn-primary {
   color: #ffffff;
