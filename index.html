@@ -2265,7 +2265,8 @@ var pbInitialised = false;
   var spans = para.querySelectorAll('.word');
 
   function revealWords() {
-    if (document.body.getAttribute('data-hv') !== '2') return;
+    var hv = document.body.getAttribute('data-hv');
+    if (hv !== '2' && hv !== '3') return;
     var triggerY = window.innerHeight * 0.72;
     spans.forEach(function(s) {
       var top = s.getBoundingClientRect().top;
