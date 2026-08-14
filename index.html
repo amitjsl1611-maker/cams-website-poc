@@ -783,6 +783,52 @@ body[data-hv="2"] .v2-scroll-arrow { display: flex; }
 }
 
 #pixel-blast-bg { display: none; }
+.hero[data-variant="4"] #pixel-blast-bg { display: block; }
+
+/* ── Variant 3: centre-left text, hero bg 3 image ── */
+.hero[data-variant="3"] .hero-slide { align-items: flex-start; padding-top: 80px; }
+.hero[data-variant="3"] .hero-grid  { grid-template-columns: 1fr; max-width: 900px; margin: 0; padding: 0 0 0 100px; gap: 0; text-align: left; }
+.hero[data-variant="3"] .hero-left  { display: flex; flex-direction: column; align-items: flex-start; }
+.hero[data-variant="3"] .hero-right { display: none !important; }
+.hero[data-variant="3"] .hero-eyebrow { color: rgba(255,255,255,0.7); margin-bottom: 12px; }
+.hero[data-variant="3"] .hero-h1    { color: #ffffff; font-size: 80px; font-weight: 400; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 16px; }
+.hero[data-variant="3"] .hero-sub   { color: rgba(255,255,255,0.78); font-size: 16px; line-height: 1.5; margin-bottom: 28px; max-width: 520px; }
+.hero[data-variant="3"] .hero-ctas  { justify-content: flex-start; }
+.hero[data-variant="3"] .btn-primary  { color: #1776D1; background: #ffffff; border-color: #ffffff; padding: 13px 32px; font-size: 16px; }
+.hero[data-variant="3"] .btn-primary:hover  { background: rgba(255,255,255,0.88); }
+.hero[data-variant="3"] .btn-secondary { color: #ffffff; background: transparent; border-color: rgba(255,255,255,0.6); padding: 13px 32px; font-size: 16px; }
+.hero[data-variant="3"] .btn-secondary:hover { background: rgba(255,255,255,0.12); border-color: #ffffff; }
+
+/* ── Variant 4: pixel burst, white bg, left text, cams AI image right ── */
+.hero[data-variant="4"] { background: #ffffff !important; }
+.hero[data-variant="4"] .hero-slide { align-items: center; }
+.hero[data-variant="4"] .hero-grid  { grid-template-columns: 60% 1fr; gap: 40px; }
+.hero[data-variant="4"] .hero-left  { display: flex; flex-direction: column; align-items: flex-start; }
+.hero[data-variant="4"] .hero-right { display: flex !important; }
+.hero[data-variant="4"] .hero-eyebrow { color: #3A4455; }
+.hero[data-variant="4"] .hero-h1    { color: #0D1421; font-size: 96px; font-weight: 700; line-height: 1.02; letter-spacing: -0.03em; margin-bottom: 20px; }
+.hero[data-variant="4"] .hero-sub   { color: #3A4455; font-size: 19px; line-height: 1.65; margin-bottom: 44px; max-width: 520px; }
+.hero[data-variant="4"] .hero-ctas  { justify-content: flex-start; }
+.hero[data-variant="4"] .btn-primary  { color: #ffffff; background: #1776D1; border-color: #1776D1; padding: 17px 36px; font-size: 17px; }
+.hero[data-variant="4"] .btn-primary:hover  { background: #1260b0; }
+.hero[data-variant="4"] .btn-secondary { color: #1776D1; background: transparent; border-color: rgba(23,118,209,0.5); padding: 17px 36px; font-size: 17px; }
+.hero[data-variant="4"] .btn-secondary:hover { background: rgba(23,118,209,0.06); border-color: #1776D1; }
+/* variant 4 nav — white bg so dark nav */
+body[data-hv="3"] .nav:not(.scrolled) .nav-logo img { filter: none; }
+body[data-hv="4"] .nav:not(.scrolled) .nav-logo img { filter: none; }
+body[data-hv="4"] .nav:not(.scrolled) .nav-trigger { color: var(--text-mid); }
+body[data-hv="4"] .nav:not(.scrolled) .nav-trigger:hover { color: var(--text-dark); background: rgba(0,0,0,0.05); }
+body[data-hv="4"] .nav:not(.scrolled) .nav-link-plain { color: var(--text-mid); }
+body[data-hv="4"] .nav:not(.scrolled) .nav-btn-investor { color: #1776D1; background: transparent; border-color: rgba(23,118,209,0.4); }
+/* hide/show bottom image and manifesto for each variant */
+body[data-hv="3"] .v2-bottom-img { display: none; }
+body[data-hv="4"] .v2-bottom-img { display: none; }
+body[data-hv="3"] .v2-manifesto  { display: none !important; }
+body[data-hv="4"] .v2-manifesto  { display: none !important; }
+body[data-hv="3"] .ticker-section { display: block; }
+body[data-hv="4"] .ticker-section { display: block; }
+body[data-hv="3"] .v2-scroll-arrow { display: none; }
+body[data-hv="4"] .v2-scroll-arrow { display: none; }
 
 #pixel-blast-bg {
   position: absolute;
@@ -1468,6 +1514,8 @@ body[data-hv="2"] .v2-scroll-arrow { display: flex; }
   <div class="variant-tabs" aria-label="Hero variant switcher">
     <button class="variant-tab active" data-v="1">1</button>
     <button class="variant-tab" data-v="2">2</button>
+    <button class="variant-tab" data-v="3">3</button>
+    <button class="variant-tab" data-v="4">4</button>
   </div>
   <div class="hero-track" id="heroTrack" aria-roledescription="carousel" aria-label="CAMS highlights">
 
@@ -2110,13 +2158,19 @@ var pbInitialised = false;
 
   var BG = {
     '1': "#1776D1 url('Hero Option 1.png') right center / cover no-repeat",
-    '2': "#ffffff"
+    '2': "#ffffff",
+    '3': "url('hero bg 3.png') center center / cover no-repeat",
+    '4': '#ffffff'
   };
 
   function switchVariant(v) {
     hero.setAttribute('data-variant', v);
     hero.style.background = BG[v];
     document.body.setAttribute('data-hv', v);
+    if (v === '4' && !pbInitialised && pbContainer) {
+      initPixelBlast(pbContainer);
+      pbInitialised = true;
+    }
     tabs.forEach(function(t) {
       t.classList.toggle('active', t.dataset.v === v);
     });
