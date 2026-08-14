@@ -2418,6 +2418,9 @@ var pbInitialised = false;
   var hero = document.getElementById('hero');
   var tabs = document.querySelectorAll('.variant-tab');
 
+  /* Tab number → internal variant: tab1=old4, tab2=old2, tab3=old1, tab4=old3 */
+  var TAB_TO_VARIANT = { '1': '4', '2': '2', '3': '1', '4': '3' };
+
   var BG = {
     '1': "#1776D1 url('Hero Option 1.png') right center / cover no-repeat",
     '2': "#ffffff",
@@ -2425,7 +2428,8 @@ var pbInitialised = false;
     '4': '#ffffff'
   };
 
-  function switchVariant(v) {
+  function switchVariant(tab) {
+    var v = TAB_TO_VARIANT[tab] || tab;
     hero.setAttribute('data-variant', v);
     hero.style.background = BG[v];
     document.body.setAttribute('data-hv', v);
@@ -2434,7 +2438,7 @@ var pbInitialised = false;
       pbInitialised = true;
     }
     tabs.forEach(function(t) {
-      t.classList.toggle('active', t.dataset.v === v);
+      t.classList.toggle('active', t.dataset.v === tab);
     });
   }
 
@@ -2442,9 +2446,8 @@ var pbInitialised = false;
     t.addEventListener('click', function() { switchVariant(t.dataset.v); });
   });
 
-  /* set initial bg + body variant attr */
-  hero.style.background = BG['1'];
-  document.body.setAttribute('data-hv', '1');
+  /* set initial: tab 1 now shows old variant 4 */
+  switchVariant('1');
 })();
 
 /* ── Variant 2/3 scroll-reveal manifesto ── */
