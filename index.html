@@ -75,7 +75,7 @@ body {
   background: transparent;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
-  border-bottom: 1px solid rgba(255,255,255,0.15);
+  border-bottom: none;
   transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 .nav.scrolled {
@@ -83,7 +83,7 @@ body {
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   box-shadow: 0 1px 32px rgba(13,20,33,0.08);
-  border-color: rgba(229,233,240,0.8);
+  border-bottom: none;
 }
 
 .nav-inner {
@@ -352,7 +352,7 @@ body {
   position: relative;
   overflow: hidden;
   width: 100%;
-  background: #1776D1 url('hero bg 1.png') right center / cover no-repeat;
+  background: #1776D1 url('Hero Option 1.png') right center / cover no-repeat;
 }
 
 .hero-track {
@@ -594,6 +594,141 @@ body {
    PIXEL BLAST BACKGROUND
 ================================================================ */
 
+/* ── Variant switcher tabs ── */
+.variant-tabs {
+  position: absolute;
+  bottom: 32px;
+  right: 40px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.variant-tab {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.6);
+  background: transparent;
+  color: rgba(255,255,255,0.8);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, color 0.18s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.variant-tab:hover {
+  background: rgba(255,255,255,0.15);
+  border-color: #ffffff;
+  color: #ffffff;
+}
+.variant-tab.active {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #1776D1;
+}
+
+/* ── Variant 3: white bg (backup) ── */
+/* ── Variant 2: manifesto section ── */
+.v2-manifesto {
+  display: none;
+  background: #ffffff;
+  padding: 120px 0 140px;
+}
+body[data-hv="2"] .v2-manifesto { display: block; }
+body[data-hv="2"] .ticker-section { display: none; }
+
+.v2-manifesto-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 80px;
+}
+
+.v2-eyebrow {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #1776D1;
+  margin-bottom: 40px;
+}
+
+.v2-body {
+  font-size: 42px;
+  font-weight: 300;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  color: #0D1421;
+}
+
+.v2-body .word {
+  color: rgba(13, 20, 33, 0.15);
+  transition: color 0.15s ease;
+  display: inline;
+}
+.v2-body .word.lit { color: rgba(13, 20, 33, 1); }
+
+/* ── Variant 2: centred stack layout ── */
+.hero[data-variant="2"] .hero-grid {
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  text-align: center;
+  max-width: 860px;
+  margin: 0 auto;
+  padding-top: 12px;
+  padding-bottom: 0;
+  gap: 40px;
+}
+.hero[data-variant="2"] .hero-left {
+  order: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hero[data-variant="2"] .hero-right {
+  display: none !important;
+}
+.hero[data-variant="2"] .hero-ctas {
+  justify-content: center;
+}
+.hero[data-variant="2"] .hero-eyebrow {
+  text-align: center;
+}
+
+.hero[data-variant="3"] {
+  background: #ffffff url('') no-repeat !important;
+}
+.hero[data-variant="3"] .hero-h1 { color: #0D1421; }
+.hero[data-variant="3"] .hero-sub { color: #3A4455; }
+.hero[data-variant="3"] .btn-primary {
+  color: var(--white);
+  background: #1776D1;
+  border-color: #1776D1;
+}
+.hero[data-variant="3"] .btn-secondary {
+  color: #1776D1;
+  background: #ffffff;
+  border-color: rgba(23,118,209,0.35);
+}
+.hero[data-variant="3"] .variant-tab {
+  border-color: rgba(23,118,209,0.4);
+  color: #1776D1;
+}
+.hero[data-variant="3"] .variant-tab:hover {
+  background: rgba(23,118,209,0.08);
+  border-color: #1776D1;
+}
+.hero[data-variant="3"] .variant-tab.active {
+  background: #1776D1;
+  border-color: #1776D1;
+  color: #ffffff;
+}
+.hero[data-variant="3"] #pixel-blast-bg { display: block; }
+.hero:not([data-variant="3"]) #pixel-blast-bg { display: none; }
+
 #pixel-blast-bg {
   position: absolute;
   inset: 0;
@@ -757,16 +892,16 @@ body {
 
 .eco-card {
   border-radius: 20px;
-  padding: 32px 28px 28px;
+  padding: 28px 28px 24px;
   display: flex;
   flex-direction: column;
-  min-height: 240px;
+  min-height: 220px;
   transition: transform 0.18s, box-shadow 0.18s;
   position: relative;
   overflow: hidden;
   --mouse-x: 50%;
   --mouse-y: 50%;
-  --spotlight-color: rgba(23, 118, 209, 0.12);
+  --spotlight-color: rgba(23, 118, 209, 0.10);
 }
 .eco-card::before {
   content: '';
@@ -785,49 +920,70 @@ body {
   box-shadow: 0 12px 40px rgba(0,0,0,0.07);
 }
 
-.eco-card-body { flex: 1; }
+/* Icon at top */
+.eco-card-icon {
+  display: flex; align-items: center; justify-content: flex-start;
+  color: #1776D1;
+  flex-shrink: 0;
+}
+.eco-card-icon svg { width: 48px; height: 48px; }
+
+/* Text + arrow pushed to bottom */
+.eco-card-bottom {
+  margin-top: auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 28px;
+}
+
+.eco-card-body { flex: 1; min-width: 0; }
 
 .eco-card-title {
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 600;
   line-height: 1.3;
   color: var(--text-dark);
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .eco-card-desc {
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 1.65;
+  line-height: 1.5;
   color: var(--text-muted);
-  max-width: 280px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .eco-card-footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-top: 28px;
+  justify-content: flex-end;
+  flex-shrink: 0;
 }
 
+/* Diagonal arrow button */
 .eco-card-link {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--blue-action);
-  text-decoration: none;
-  letter-spacing: 0.01em;
-  transition: color 0.15s;
-}
-.eco-card-link:hover { color: var(--blue-primary); text-decoration: underline; }
-
-.eco-card-icon {
   width: 36px; height: 36px;
   display: flex; align-items: center; justify-content: center;
-  background: rgba(255,255,255,0.55);
   border-radius: 50%;
+  background: var(--bg-subtle);
   color: var(--text-mid);
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s, transform 0.15s;
+  flex-shrink: 0;
 }
-.eco-card-icon svg { width: 18px; height: 18px; }
+.eco-card-link:hover {
+  background: #1776D1;
+  color: #ffffff;
+  transform: scale(1.08);
+  text-decoration: none;
+}
+.eco-card-link svg { width: 16px; height: 16px; }
 
 /* card colour palette */
 .eco-card-1, .eco-card-2, .eco-card-3,
@@ -969,20 +1125,6 @@ body {
 
     <!-- Right rail -->
     <div class="nav-right">
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-        <!-- Moon icon (shown in light mode) -->
-        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-        <!-- Sun icon (shown in dark mode) -->
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="5"/>
-          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-        </svg>
-      </button>
       <a href="#" class="nav-link-plain">Contact Us</a>
       <button class="nav-btn-investor" data-menu="investor-services" aria-expanded="false" aria-haspopup="true">
         <span>Investor Services</span>
@@ -1252,8 +1394,15 @@ body {
 <!-- ================================================================
      HERO
 ================================================================ -->
-<section class="hero" aria-label="CAMS hero" id="hero">
+<section class="hero" aria-label="CAMS hero" id="hero" data-variant="1">
   <div id="pixel-blast-bg" aria-hidden="true"></div>
+
+  <!-- Variant switcher tabs (bottom-right, client preview only) -->
+  <div class="variant-tabs" aria-label="Hero variant switcher">
+    <button class="variant-tab active" data-v="1">1</button>
+    <button class="variant-tab" data-v="2">2</button>
+    <button class="variant-tab" data-v="3">3</button>
+  </div>
   <div class="hero-track" id="heroTrack" aria-roledescription="carousel" aria-label="CAMS highlights">
 
     <!-- Slide 1 -->
@@ -1373,6 +1522,15 @@ body {
   </div>
 </section>
 
+<!-- ================================================================
+     VARIANT 2 — Scroll-reveal manifesto (hidden unless tab 2 active)
+================================================================ -->
+<section class="v2-manifesto" id="v2Manifesto" aria-label="About CAMS">
+  <div class="v2-manifesto-inner">
+    <p class="v2-eyebrow">What is CAMS</p>
+    <p class="v2-body" id="v2ManifestoText">CAMS is India's largest financial infrastructure and technology company. For over 25 years we have built the rails that power the country's investment ecosystem. We process more than 65% of India's mutual fund transactions, connecting 50 million investors to their wealth every single day. We run insurance repositories, digital payments, data intelligence platforms, and digital onboarding infrastructure for over 200 financial institutions. We are not just a service provider. We are the backbone of how India saves, invests, and grows.</p>
+  </div>
+</section>
 
 <!-- ================================================================
      ECOSYSTEM / PRODUCTS SECTION
@@ -1389,85 +1547,104 @@ body {
 
     <!-- Card 1 — Mutual Fund RTA -->
     <div class="eco-card eco-card-1">
-      <div class="eco-card-body">
-        <h3 class="eco-card-title">India's largest mutual fund<br>registry and transfer agent</h3>
-        <p class="eco-card-desc">End-to-end RTA services powering transactions, statements and investor servicing for 50M+ folios across AMCs.</p>
-      </div>
-      <div class="eco-card-footer">
-        <a href="#" class="eco-card-link">Mutual Fund Services</a>
-        <span class="eco-card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9A1 1 0 0 0 21.4 6.08z"/><path d="m6.08 9.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/><path d="m6.08 14.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/></svg>
-        </span>
+      <span class="eco-card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9A1 1 0 0 0 21.4 6.08z"/><path d="m6.08 9.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/><path d="m6.08 14.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/></svg>
+      </span>
+      <div class="eco-card-bottom">
+        <div class="eco-card-body">
+          <h3 class="eco-card-title">Mutual Fund RTA</h3>
+          <p class="eco-card-desc">India's largest registry, 50M+ folios.</p>
+        </div>
+        <div class="eco-card-footer">
+          <a href="#" class="eco-card-link" aria-label="Mutual Fund Services">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+          </a>
+        </div>
       </div>
     </div>
 
-    <!-- Card 2 — Insurance Repository -->
     <div class="eco-card eco-card-2">
-      <div class="eco-card-body">
-        <h3 class="eco-card-title">One digital home for every<br>insurance policy</h3>
-        <p class="eco-card-desc">Bima Central digitises and centralises insurance portfolios, making policies accessible anytime for policyholders across India.</p>
-      </div>
-      <div class="eco-card-footer">
-        <a href="#" class="eco-card-link">Bima Central</a>
-        <span class="eco-card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
-        </span>
+      <span class="eco-card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+      </span>
+      <div class="eco-card-bottom">
+        <div class="eco-card-body">
+          <h3 class="eco-card-title">Bima Central</h3>
+          <p class="eco-card-desc">One digital home for all your policies.</p>
+        </div>
+        <div class="eco-card-footer">
+          <a href="#" class="eco-card-link" aria-label="Bima Central">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+          </a>
+        </div>
       </div>
     </div>
 
-    <!-- Card 3 — Payments -->
     <div class="eco-card eco-card-3">
-      <div class="eco-card-body">
-        <h3 class="eco-card-title">Move money with confidence,<br>every time</h3>
-        <p class="eco-card-desc">CAMS Pay processes dividends, redemptions and SIP mandates with reliability and speed at financial-infrastructure scale.</p>
-      </div>
-      <div class="eco-card-footer">
-        <a href="#" class="eco-card-link">CAMS Pay</a>
-        <span class="eco-card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
-        </span>
+      <span class="eco-card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+      </span>
+      <div class="eco-card-bottom">
+        <div class="eco-card-body">
+          <h3 class="eco-card-title">CAMS Pay</h3>
+          <p class="eco-card-desc">Fast, reliable SIP and dividend payments.</p>
+        </div>
+        <div class="eco-card-footer">
+          <a href="#" class="eco-card-link" aria-label="CAMS Pay">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+          </a>
+        </div>
       </div>
     </div>
 
-    <!-- Card 4 — Data & AI -->
     <div class="eco-card eco-card-4">
-      <div class="eco-card-body">
-        <h3 class="eco-card-title">Turn financial data into<br>competitive advantage</h3>
-        <p class="eco-card-desc">Actionable intelligence drawn from 25+ years of transaction data, delivered through real-time APIs and analytics dashboards.</p>
-      </div>
-      <div class="eco-card-footer">
-        <a href="#" class="eco-card-link">Data &amp; Analytics</a>
-        <span class="eco-card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
-        </span>
+      <span class="eco-card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+      </span>
+      <div class="eco-card-bottom">
+        <div class="eco-card-body">
+          <h3 class="eco-card-title">Data &amp; Analytics</h3>
+          <p class="eco-card-desc">25+ years of financial data intelligence.</p>
+        </div>
+        <div class="eco-card-footer">
+          <a href="#" class="eco-card-link" aria-label="Data & Analytics">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+          </a>
+        </div>
       </div>
     </div>
 
-    <!-- Card 5 — Technology Solutions -->
     <div class="eco-card eco-card-5">
-      <div class="eco-card-body">
-        <h3 class="eco-card-title">Build financial products<br>on proven rails</h3>
-        <p class="eco-card-desc">White-label platforms and open APIs that let fintechs and enterprises launch regulated financial products faster.</p>
-      </div>
-      <div class="eco-card-footer">
-        <a href="#" class="eco-card-link">Technology Solutions</a>
-        <span class="eco-card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>
-        </span>
+      <span class="eco-card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      </span>
+      <div class="eco-card-bottom">
+        <div class="eco-card-body">
+          <h3 class="eco-card-title">Technology Platform</h3>
+          <p class="eco-card-desc">APIs and white-label tools for fintechs.</p>
+        </div>
+        <div class="eco-card-footer">
+          <a href="#" class="eco-card-link" aria-label="Technology Solutions">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+          </a>
+        </div>
       </div>
     </div>
 
-    <!-- Card 6 — Digital KYC / Onboarding -->
     <div class="eco-card eco-card-6">
-      <div class="eco-card-body">
-        <h3 class="eco-card-title">Open, KYC and onboard —<br>fully digital</h3>
-        <p class="eco-card-desc">eKYC, video KYC and digital account-opening infrastructure trusted by 200+ financial institutions across India.</p>
-      </div>
-      <div class="eco-card-footer">
-        <a href="#" class="eco-card-link">Digital Services</a>
-        <span class="eco-card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>
-        </span>
+      <span class="eco-card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>
+      </span>
+      <div class="eco-card-bottom">
+        <div class="eco-card-body">
+          <h3 class="eco-card-title">Digital Onboarding</h3>
+          <p class="eco-card-desc">eKYC for 200+ financial institutions.</p>
+        </div>
+        <div class="eco-card-footer">
+          <a href="#" class="eco-card-link" aria-label="Digital Services">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+          </a>
+        </div>
       </div>
     </div>
 
@@ -1545,21 +1722,10 @@ function setSlide(n) {
 
 // Carousel autoplay disabled — single hero view
 
-/* ── Dark mode toggle ── */
+/* ── Dark mode disabled ── */
 (function() {
-  const btn = document.getElementById('themeToggle');
-  const saved = localStorage.getItem('cams-theme');
-  if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
-  btn.addEventListener('click', () => {
-    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    if (isDark) {
-      document.documentElement.removeAttribute('data-theme');
-      localStorage.setItem('cams-theme', 'light');
-    } else {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      localStorage.setItem('cams-theme', 'dark');
-    }
-  });
+  document.documentElement.removeAttribute('data-theme');
+  localStorage.removeItem('cams-theme');
 })();
 </script>
 
@@ -1867,9 +2033,72 @@ function initPixelBlast(container) {
   animate();
 }
 
-/* pixel burst disabled */
-// const pbContainer = document.getElementById('pixel-blast-bg');
-// if (pbContainer) initPixelBlast(pbContainer);
+/* pixel burst — enabled only for variant 3 */
+var pbContainer = document.getElementById('pixel-blast-bg');
+var pbInitialised = false;
+
+/* ── Variant switcher ── */
+(function() {
+  var hero = document.getElementById('hero');
+  var tabs = document.querySelectorAll('.variant-tab');
+
+  var BG = {
+    '1': "#1776D1 url('Hero Option 1.png') right center / cover no-repeat",
+    '2': "url('Hero option 2.png?v=" + Date.now() + "') center center / cover no-repeat",
+    '3': '#ffffff'
+  };
+
+  function switchVariant(v) {
+    hero.setAttribute('data-variant', v);
+    hero.style.background = BG[v];
+    document.body.setAttribute('data-hv', v);
+    tabs.forEach(function(t) {
+      t.classList.toggle('active', t.dataset.v === v);
+    });
+    /* pixel burst: init + show only on variant 3 */
+    if (v === '3') {
+      if (!pbInitialised && pbContainer) {
+        initPixelBlast(pbContainer);
+        pbInitialised = true;
+      }
+    }
+  }
+
+  tabs.forEach(function(t) {
+    t.addEventListener('click', function() { switchVariant(t.dataset.v); });
+  });
+
+  /* set initial bg + body variant attr */
+  hero.style.background = BG['1'];
+  document.body.setAttribute('data-hv', '1');
+})();
+
+/* ── Variant 2 scroll-reveal manifesto ── */
+(function() {
+  var para = document.getElementById('v2ManifestoText');
+  if (!para) return;
+
+  /* wrap each word in a span */
+  var text = para.textContent;
+  var words = text.split(/(\s+)/);
+  para.innerHTML = words.map(function(w) {
+    return /\S/.test(w) ? '<span class="word">' + w + '</span>' : w;
+  }).join('');
+
+  var spans = para.querySelectorAll('.word');
+
+  function revealWords() {
+    if (document.body.getAttribute('data-hv') !== '2') return;
+    var triggerY = window.innerHeight * 0.72;
+    spans.forEach(function(s) {
+      var top = s.getBoundingClientRect().top;
+      s.classList.toggle('lit', top < triggerY);
+    });
+  }
+
+  window.addEventListener('scroll', revealWords, { passive: true });
+  revealWords();
+})();
 
 /* SpotlightCard effect for eco-cards */
 document.querySelectorAll('.eco-card').forEach(card => {
