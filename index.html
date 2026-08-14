@@ -742,6 +742,27 @@ body[data-hv="2"] .nav:not(.scrolled) .nav-btn-investor:hover { background: rgba
   border-color: #1776D1;
 }
 
+/* Bottom image — variant 2 only */
+.v2-bottom-img {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  left: 40px;
+  right: 40px;
+  text-align: center;
+  z-index: 2;
+  pointer-events: none;
+}
+body[data-hv="2"] .v2-bottom-img { display: block; }
+.v2-bottom-img img {
+  max-height: 340px;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+  display: block;
+  margin: 0 auto;
+}
+
 /* Pulsating scroll arrow — variant 2 only */
 .v2-scroll-arrow {
   display: none;
@@ -1429,6 +1450,11 @@ body[data-hv="2"] .v2-scroll-arrow { display: flex; }
 ================================================================ -->
 <section class="hero" aria-label="CAMS hero" id="hero" data-variant="1">
   <div id="pixel-blast-bg" aria-hidden="true"></div>
+
+  <!-- Bottom image (variant 2 only) -->
+  <div class="v2-bottom-img" aria-hidden="true">
+    <img src="Hero option 2.png" alt="">
+  </div>
 
   <!-- Scroll-down arrow (variant 2 only) -->
   <div class="v2-scroll-arrow" aria-hidden="true">
