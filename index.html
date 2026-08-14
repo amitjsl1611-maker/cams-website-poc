@@ -690,7 +690,7 @@ body[data-hv="2"] .ticker-section { display: none; }
 }
 .hero[data-variant="2"] .hero-slide {
   align-items: flex-start;
-  padding-top: 80px;
+  padding-top: 120px;
 }
 .hero[data-variant="2"] .hero-grid {
   grid-template-columns: 1fr;
@@ -746,12 +746,12 @@ body[data-hv="2"] .nav:not(.scrolled) .nav-btn-investor:hover { background: rgba
 .v2-bottom-img {
   display: none;
   position: absolute;
-  bottom: -4%;
+  bottom: -8%;
   left: 50%;
   transform: translateX(-50%);
-  width: 60%;
-  max-width: 760px;
-  z-index: 1;
+  width: 62%;
+  max-width: 780px;
+  z-index: 3;
   pointer-events: none;
 }
 body[data-hv="2"] .v2-bottom-img { display: block; }
@@ -866,17 +866,20 @@ body[data-hv="3"] .v3-ticker-strip { display: block; }
 }
 body[data-hv="4"] .v2-scroll-arrow { display: none; }
 /* Tab button colours on light-bg variants */
-body[data-hv="4"] .variant-tab {
+body[data-hv="4"] .variant-tab,
+body[data-hv="2"] .variant-tab {
   border-color: rgba(23,118,209,0.4);
   color: #1776D1;
   background: transparent;
 }
-body[data-hv="4"] .variant-tab:hover {
+body[data-hv="4"] .variant-tab:hover,
+body[data-hv="2"] .variant-tab:hover {
   background: rgba(23,118,209,0.08);
   border-color: #1776D1;
   color: #1776D1;
 }
-body[data-hv="4"] .variant-tab.active {
+body[data-hv="4"] .variant-tab.active,
+body[data-hv="2"] .variant-tab.active {
   background: #1776D1;
   border-color: #1776D1;
   color: #ffffff;
