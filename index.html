@@ -1148,11 +1148,14 @@ body[data-hv="4"] .variant-tab.active {
 body[data-hv="3"] .eco-grid { display: none; }
 body[data-hv="3"] .eco-header { display: none; }
 body[data-hv="3"] .v3-carousel-wrap { display: block; }
-body[data-hv="3"] .ecosystem-section { background: #1776D1; }
-body[data-hv="3"] > div[style] { background: #1776D1 !important; }
+body[data-hv="3"] .ecosystem-section { background: #0D1421; }
+body[data-hv="3"] > div[style] { background: #0D1421 !important; }
 body[data-hv="3"] .v3-carousel-title { color: #ffffff; }
 body[data-hv="3"] .v3-arr-btn { border-color: rgba(255,255,255,0.4); background: transparent; color: #ffffff; }
 body[data-hv="3"] .v3-arr-btn:hover { background: rgba(255,255,255,0.15); border-color: #ffffff; }
+body[data-hv="3"] .v3-slide-desc { color: rgba(255,255,255,0.6); }
+body[data-hv="3"] .v3-slide-link { color: rgba(255,255,255,0.8); }
+body[data-hv="3"] .v3-slide-link:hover { color: #ffffff; }
 
 .v3-carousel-wrap { display: none; }
 
@@ -1208,26 +1211,16 @@ body[data-hv="3"] .v3-arr-btn:hover { background: rgba(255,255,255,0.15); border
 }
 .v3-slide-img {
   width: 100%;
-  aspect-ratio: 3 / 4;
   border-radius: 16px;
   overflow: hidden;
-  background: #ffffff;
-  border: 1.5px solid rgba(23,118,209,0.18);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   margin-bottom: 18px;
   position: relative;
-  padding: 24px;
-  box-sizing: border-box;
+  display: block;
 }
-.v3-slide-img svg {
-  width: 64px;
-  height: 64px;
-  color: #1776D1;
-  opacity: 0.22;
-  flex-shrink: 0;
+.v3-slide-img img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 .v3-slide-title {
   position: absolute;
@@ -1964,7 +1957,7 @@ body[data-hv="3"] .v3-arr-btn:hover { background: rgba(255,255,255,0.15); border
 
         <div class="v3-slide">
           <div class="v3-slide-img">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9A1 1 0 0 0 21.4 6.08z"/><path d="m6.08 9.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/><path d="m6.08 14.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/></svg>
+            <img src="card1.png" alt="Mutual Fund RTA">
             <h3 class="v3-slide-title">Mutual Fund RTA</h3>
           </div>
           <div class="v3-slide-body">
@@ -1975,7 +1968,7 @@ body[data-hv="3"] .v3-arr-btn:hover { background: rgba(255,255,255,0.15); border
 
         <div class="v3-slide">
           <div class="v3-slide-img">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+            <img src="card 2.png" alt="Bima Central">
             <h3 class="v3-slide-title">Bima Central</h3>
           </div>
           <div class="v3-slide-body">
@@ -1986,7 +1979,7 @@ body[data-hv="3"] .v3-arr-btn:hover { background: rgba(255,255,255,0.15); border
 
         <div class="v3-slide">
           <div class="v3-slide-img">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+            <img src="card 3.png" alt="CAMS Pay">
             <h3 class="v3-slide-title">CAMS Pay</h3>
           </div>
           <div class="v3-slide-body">
@@ -1997,7 +1990,7 @@ body[data-hv="3"] .v3-arr-btn:hover { background: rgba(255,255,255,0.15); border
 
         <div class="v3-slide">
           <div class="v3-slide-img">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+            <img src="card 4.png" alt="Data & Analytics">
             <h3 class="v3-slide-title">Data &amp; Analytics</h3>
           </div>
           <div class="v3-slide-body">
@@ -2008,7 +2001,7 @@ body[data-hv="3"] .v3-arr-btn:hover { background: rgba(255,255,255,0.15); border
 
         <div class="v3-slide">
           <div class="v3-slide-img">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            <img src="card 5.png" alt="Technology Platform">
             <h3 class="v3-slide-title">Technology Platform</h3>
           </div>
           <div class="v3-slide-body">
@@ -2019,7 +2012,7 @@ body[data-hv="3"] .v3-arr-btn:hover { background: rgba(255,255,255,0.15); border
 
         <div class="v3-slide">
           <div class="v3-slide-img">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>
+            <img src="card 6.png" alt="Digital Onboarding">
             <h3 class="v3-slide-title">Digital Onboarding</h3>
           </div>
           <div class="v3-slide-body">
